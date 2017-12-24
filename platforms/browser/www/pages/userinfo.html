@@ -1,0 +1,90 @@
+<div id="content1"></div>
+<script id="user" type="text/html">
+  <section class="info-text-left info-img-left userinfo">
+     <ul class="mdc-list mdc-list-group">
+        <li class="mdc-list-item">二维码
+           <img class="mdc-list-item__end-img" src="img/qr_code.png" width="40" height="40" alt="qr_code">
+        </li>
+        <li class="mdc-list-divider" role="separator"></li>
+        <a class="mdc-list-item" href="#userinfo/avatar">照片
+        {{if avatar == null}}
+         <div class="mdc-list-item__end-avatar">编辑</div>
+        {{else}}
+        <img class="mdc-list-item__end-avatar" src="{{avatar}}" width="40" height="40" alt="">
+        {{/if}}
+           
+        </a>
+        <li class="mdc-list-divider" role="separator"></li>
+        <li class="mdc-list-item">注册号
+           <span class="mdc-list-item__end-detail">{{id}}</span>
+        </li>
+        <li class="mdc-list-divider" role="separator"></li>
+        <li class="mdc-list-item">姓名<span class="mdc-list-item__end-detail">{{nickname}}</span></li>
+     </ul>
+     <ul class="mdc-list mdc-list-group list-group__subheader">
+        <h5 class="mdc-list-group__subheader subheader">联系方式</h5>
+        <li class="mdc-list-item">手机号<span class="mdc-list-item__end-detail">{{phone}}</span></li>
+        <li class="mdc-list-divider" role="separator"></li>
+        <li class="mdc-list-item">微信<span class="mdc-list-item__end-detail">暂无</span></li>
+     </ul>
+     <ul class="mdc-list mdc-list-group list-group__subheader">
+        <h5 class="mdc-list-group__subheader subheader">企业服务</h5>
+        {{each merchant_service_list val}}
+            {{each val.services item}}
+                {{if val.id == app_merchant_id}}
+                  <li class="mdc-list-item change" data-merchant-id="{{val.id}}" data-service-id="{{item.id}}" data-merchant-name="{{val.name}}">{{val.name}}<span class="mdc-list-item__end-detail">当前</span></li>
+                  <li class="mdc-list-divider" role="separator"></li>
+                {{else}}
+                  <li class="mdc-list-item change" data-merchant-id="{{val.id}}" data-service-id="{{item.id}}" data-merchant-name="{{val.name}}">{{val.name}}<span class="mdc-list-item__end-detail">切换</span></li>
+                  <li class="mdc-list-divider" role="separator"></li>
+                {{/if}}
+            {{/each}}
+        {{/each}}
+     </ul>
+<!--      <ul class="mdc-list mdc-list-group list-group__subheader">
+        <h5 class="mdc-list-group__subheader subheader">相册</h5>
+        <section class="album">
+           <div class="mdc-grid-list mdc-grid-list--tile-gutter-4">
+             <ul class="mdc-grid-list__tiles">
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/profile_pic.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift4.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift3.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift2.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift1.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift4.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift1.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift4.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift3.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift4.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift1.png" /></div></li>
+               <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift4.png" /></div></li>
+            </ul>
+           </div>
+        </section>
+     </ul> -->
+     <ul class="mdc-list mdc-list-group list-group__subheader">
+        <h5 class="mdc-list-group__subheader subheader">操作</h5>
+        <div class="loginout">
+           <button class="mdc-button mdc-button--raised"> 退出当前账号 </button>
+        </div>
+     </ul>
+  </section>
+  <aside id="my-mdc-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="my-mdc-dialog-label" aria-describedby="my-mdc-dialog-description">
+  <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+      <h2 id="my-mdc-dialog-label" class="mdc-dialog__header__title">
+        您是否要切换系统到如下企业：
+      </h2>
+    </header>
+    <section id="my-mdc-dialog-description" class="mdc-dialog__body">
+      
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">不切换</button>
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">切换</button>
+    </footer>
+  </div>
+  <div class="mdc-dialog__backdrop"></div>
+</aside>
+</script>
+

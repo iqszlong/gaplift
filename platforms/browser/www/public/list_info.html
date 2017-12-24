@@ -1,0 +1,110 @@
+<div class="mdc-toolbar">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <a href="back" class="material-icons mdc-toolbar__icon">arrow_back</a>
+
+          <span class="info_titles mdc-toolbar__title catalog-title"></span>
+            <script type="text/html" id="info_title">
+            	<span>{{title}}信息</span>
+            </script>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+        	<script type="text/html" id="sub">
+				<button class="mdc-button mdc-button--primary {{item}}">确定</button>
+			</script>
+        </section>
+    </div>
+</div>
+
+<div class="main-content">
+	<div class="mdc-list-group lift_info">
+
+		<script type="text/html" id="lift_info">
+		
+			<div class="mdc-list">
+			{{each data val}}
+			{{if val.type == "hr"}}
+				<h3 class="mdc-list-group__subheader"><i class="material-icons">sort</i>{{val.lab}}</h3>
+			{{/if}}
+			{{if val.type == "text"}}
+
+			<a class="mdc-list-item" href="#area/editText/{{val.name}}/{{item}}">
+				{{val.label}}
+					<span class="mdc-list-item__end-detail" name="{{val.name}}" text="{{val.label}}">
+						{{if val.name == "employees"}}
+							{{each val.value op}}
+							{{op.employee_name}}
+							{{/each}}
+						{{else if val.name == "merchants"}}
+							{{each val.value op}}
+							{{op.merchant_contact_name}}
+							{{/each}}
+						{{else}}
+							{{if val.value}}{{val.value}}{{else}}编辑{{/if}}
+						{{/if}}
+						
+					</span>
+					<i class="material-icons next-edit">keyboard_arrow_right</i>
+				
+			</a>
+			{{/if}}
+			{{if val.type == "status"}}
+			<a class="mdc-list-item">
+				{{val.label}}
+					      <span class="mdc-list-item__end-detail basic-switch">
+					        <section class="example">
+					          <div class="mdc-switch">
+					            {{if val.name =='status'}}
+					            	{{if val.value == "SENABLE"}}
+					            		{{set checked = 'checked'}}
+					            	{{/if}}
+					            {{/if}}
+					            <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" {{checked}} />
+					            <div class="mdc-switch__background">
+					              <div class="mdc-switch__knob"></div>
+					            </div>
+					          </div>
+					        </section>
+					        </span>
+				
+			</a>
+		    {{/if}}
+			
+
+		 	{{if val.type == 'Select-Multiple'}}
+		     	<a class="mdc-list-item" href="#area/editSelectMul/{{val.name}}/{{item}}">
+					{{val.label}}
+						<span class="mdc-list-item__end-detail" name="{{val.name}}" text="{{val.label}}">
+						{{if val.name == "employees"}}
+							{{each val.value op}}
+							{{op.employee_name}}
+							{{/each}}
+						{{else if val.name == "merchants"}}
+							{{each val.value op}}
+							{{op.merchant_contact_name}}
+							{{/each}}
+						{{else}}
+							{{if val.value}}{{val.value}}{{else}}编辑{{/if}}
+						{{/if}}
+						
+					</span>
+					 	<i class="material-icons next-edit">keyboard_arrow_right</i>
+					
+				</a>
+		    {{/if}}
+
+		    {{if val.type == 'area-place'}}
+						<a class="mdc-list-item" href="#area/place/{{val.name}}/{{item}}">
+							{{val.label}}
+								<span class="mdc-list-item__end-detail" name="{{val.name}}" text="{{val.label}}">
+								{{val.value}}
+								</span>
+								<i class="material-icons next-edit">keyboard_arrow_right</i>
+							
+						</a>
+		    {{/if}}
+			{{/each}}
+			</div>
+		</script>
+	</div>
+</div>

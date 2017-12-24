@@ -1,0 +1,65 @@
+<div class="mdc-toolbar">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <a href="back" class="material-icons mdc-toolbar__icon">arrow_back</a>
+            <span class="mdc-toolbar__title catalog-title">好友信息</span>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+			<a href="#" class="material-icons mdc-toolbar__icon" aria-label="search" alt="search"></a>
+        </section>
+    </div>
+</div>
+<div class="main-content">
+    <div class="contacts"></div>
+    <script id="contacts" type="text/html">
+      <section class="info-text-left info-img-left userinfo">
+         <ul class="mdc-list mdc-list-group">
+            <li class="mdc-list-item">二维码
+               <img class="mdc-list-item__end-img" src="img/qr_code.png" width="40" height="40" alt="qr_code">
+            </li>
+            <li class="mdc-list-divider" role="separator"></li>
+            <a class="mdc-list-item">照片
+               <img class="mdc-list-item__end-avatar" src="{{avatar}}" width="40" height="40" alt="">
+            </a>
+            <li class="mdc-list-divider" role="separator"></li>
+            <li class="mdc-list-item">注册号
+               <span class="mdc-list-item__end-detail">{{id}}</span>
+            </li>
+            <li class="mdc-list-divider" role="separator"></li>
+            <li class="mdc-list-item">姓名<span class="mdc-list-item__end-detail">{{name}}</span></li>
+         </ul>
+         <ul class="mdc-list mdc-list-group list-group__subheader">
+            <h5 class="mdc-list-group__subheader subheader">联系方式</h5>
+            <li class="mdc-list-item">手机号<span class="mdc-list-item__end-detail">{{phone}}</span></li>
+            <li class="mdc-list-divider" role="separator"></li>
+            <li class="mdc-list-item">微信<span class="mdc-list-item__end-detail">暂无</span></li>
+         </ul>
+         <ul class="mdc-list mdc-list-group list-group__subheader">
+            <h5 class="mdc-list-group__subheader subheader">企业服务</h5>
+            <li class="mdc-list-item">服务1<span class="mdc-list-item__end-detail">当前</span><span class="mdc-list-item__end-detail">师傅</span><span class="mdc-list-item__end-detail">当前</span></li>
+            <li class="mdc-list-divider" role="separator"></li>
+            <li class="mdc-list-item">服务2<span class="mdc-list-item__end-detail">当前</span><span class="mdc-list-item__end-detail">CEO</span><span class="mdc-list-item__end-detail">切换</span></li>
+         </ul>
+<!--          <ul class="mdc-list mdc-list-group list-group__subheader">
+            <h5 class="mdc-list-group__subheader subheader">相册</h5>
+            <section class="album">
+               <div class="mdc-grid-list mdc-grid-list--tile-gutter-4">
+                 <ul class="mdc-grid-list__tiles">
+                   <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/profile_pic.png" /></div></li>
+                   <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift4.png" /></div></li>
+                   <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift3.png" /></div></li>
+                   <li class="mdc-grid-tile"><div class="mdc-grid-tile__primary"><img class="mdc-grid-tile__primary-content" src="img/lift2.png" /></div></li>
+                </ul>
+               </div>
+            </section>
+         </ul> -->
+          <ul class="mdc-list mdc-list-group list-group__subheader">
+            <h5 class="mdc-list-group__subheader subheader">操作</h5>
+            <div class="send_employee_massage" >
+               <button class="mdc-button mdc-button--raised notice-item" data-from-user-id="{{user_id}}" data-message-type="TMSG" data-event-type=""> 给对方发消息 </button>
+            </div>
+          </ul>
+      </section>
+    </script>
+</div>
+

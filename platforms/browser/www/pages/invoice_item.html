@@ -1,0 +1,39 @@
+<div class="mdc-toolbar">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <a href="back" class="material-icons mdc-toolbar__icon">arrow_back</a>
+            <span class="mdc-toolbar__title catalog-title">单据查看</span>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+			<button class="mdc-button mdc-button--primary">确定</button>
+        </section>
+    </div>
+</div>
+<div class="main-content">
+	<div class="mdc-list-group lift_info">
+		<ul class="mdc-list">
+		    <div class="invoice_item"></div>
+		    <script type="text/html" id="invoice_item">
+		    	{{each $data val i}}
+
+				<a class="mdc-list-item" href="#invoice/editText/{{i}}/{{val.type}}{{if val.sub_type}}/{{val.sub_type}}{{/if}}">
+					<span class="invoice_name">{{val.name}}</span>
+					{{each val.values op index}}
+						<span class="invoice_item_info" value='{{index}}'>
+							{{if op.value == 'false'}}
+								否
+							{{else if op.value == 'true'}}
+								是
+							{{else}}
+							{{op.value}}
+							{{/if}}
+						</span>
+					{{/each}}
+
+					<span class="mdc-list-item__end-detail">{{set length = val.values.length}}{{length}}{{$data.registration_code}}</span>
+				</a>
+				{{/each}}
+			</script>
+		</ul>
+	</div>
+</div>

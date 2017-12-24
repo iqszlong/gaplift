@@ -1,0 +1,72 @@
+<div class="main addressbook">
+	<div class="mdc-toolbar" id="dynamic-demo-toolbar">
+        <div class="mdc-toolbar__row">
+          <div class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <nav id="dynamic-tab-bar" class="mdc-tab-bar mdc-tab-bar--indicator-accent" role="tablist">
+              <a role="tab" aria-controls="panel-1" class="mdc-tab mdc-tab--active" href="#panel-1">联系人</a>
+              <a role="tab" aria-controls="panel-2" class="mdc-tab" href="#panel-2">分组</a>
+              <!-- <a role="tab" aria-controls="panel-3" class="mdc-tab" href="#panel-3">组织</a> -->
+              <span class="mdc-tab-bar__indicator"></span>
+            </nav>
+          </div>
+        </div>
+    </div>
+	<section>
+	    <div class="panels">
+	      	<div class="panel list resultList addressbook-item employee_list" id="panel-1" role="tabpanel" >
+
+    		</div>
+    		<div class="panel list resultList addressbook-item group_list" id="panel-2" role="tabpanel" hidden="true">分组
+				
+    		</div>
+    		<div class="panel list resultList addressbook-item org_list" id="panel-3" role="tabpanel" hidden="true">组织
+
+    		</div>
+	    </div>
+	</section>	
+</div>
+<div class="slidePage flex-def flex-zTopBottom flex-zCenter flex-cEnd" ontouchend="addressbook.touchEnd()"  ontouchmove="addressbook.move()">
+	<div class="wrap"></div>
+</div>
+<div class="letter"></div>
+
+<script type="text/html" id="group_list">
+<div class="mdc-list-group work-list">
+	<ul class="mdc-list mdc-list--two-line">
+		{{each $data item}}
+		<div class="mdc-list-item repair">
+			<span class="mdc-list-item__text">{{item.title}}
+			    <span class="mdc-list-item__text__secondary"></span>
+			</span>
+			<span class="mdc-list-item__end-detail">
+	            <span>{{if item.is_private}}私有{{else}}公共{{/if}}</span>
+            </span>
+		</div>
+		<hr class="mdc-list-divider">
+		{{/each}}
+	</ul>
+</div>
+</script>
+
+
+<script type="text/html" id="employee_list">
+<div class="mdc-list-group work-list">
+	<ul class="mdc-list mdc-list--two-line mdc-list--avatar-list">
+		{{each $data item}}
+		<a class="mdc-list-item repair work-item" data-mdc-auto-init="MDCRipple" href="#addressbook/detail/{{item.id}}">
+			<div class="img-box mdc-list-item__start-detail" role="presentation" data-word="维修">
+			  <div class="inner" style="background-image: url('')"></div>
+			</div>
+			<span class="mdc-list-item__text">{{item.name}}
+			    <span class="mdc-list-item__text__secondary"></span>
+			</span>
+			<span class="mdc-list-item__end-detail">
+	            <time datetime="" class="date">{{item.organizations[0].organization_name}}</time>
+	            <span class="clock">{{item.roles[0].role_name}}</span>
+            </span>
+		</a>
+		<hr class="mdc-list-divider mdc-list-divider--inset">
+		{{/each}}
+	</ul>
+</div>
+</script>
