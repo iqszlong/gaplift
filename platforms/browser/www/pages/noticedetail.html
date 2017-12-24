@@ -1,0 +1,37 @@
+<div class="mdc-toolbar">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <a href="back" class="material-icons mdc-toolbar__icon">arrow_back</a>
+            <span class="mdc-toolbar__title catalog-title">消息</span>
+        </section>
+    </div>
+</div>
+<main class="main-content comment-list">
+	<script id="notice_comment_item" type="text/html"> 
+    <ul class="mdc-list mdc-list--avatar-list mdc-list--dense {{if hidename}}hide-name{{/if}} ">
+		{{each $data.messages val}}
+        {{if $data.from_user_id != val.from_user_id}}{{set my = 'my'}}{{/if}}
+
+			<li class="mdc-list-item {{val.type}}  {{my}}">
+	            <div class="img-box mdc-list-item__start-detail" data-word="{{val.word}}"><div class="inner from_user_avatar" style="background-image: url('{{val.from_user_avatar}}')"></div></div>
+	            <div class="notice-detail">
+	            <div class="notice-name">{{val.name}}</div>
+	            <div class="notice-comment">{{val.content}}</div>
+	            </div>
+	        </li>
+		{{/each}}
+    </ul>
+	</script>
+</main>
+<section class="post-notice">
+
+    <div class="mdc-textfield mdc-form-field mdc-textfield--fullwidth mdc-textfield--dense" data-mdc-auto-init="MDCTextfield">
+        <input type="text" class="mdc-textfield__input">
+        <div class="mdc-textfield__bottom-line"></div>
+    </div>
+
+    <button class="mdc-button" onclick="notice.sendmsg()">
+        <i class="material-icons mdc-button__icon">send</i>
+        发送
+    </button>
+</section>

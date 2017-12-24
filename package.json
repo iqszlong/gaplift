@@ -1,0 +1,11 @@
+{
+  "name": "com.elift.app",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "displayName": "elift",
+  "dependencies": {
+    "phonegap-plugin-barcodescanner": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git"
+  }
+}

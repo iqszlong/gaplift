@@ -1,0 +1,44 @@
+<nav class="mdc-list mdc-list--avatar-list mdc-list--two-line notice-list">
+    <script id="notice_item" type="text/html">
+        {{each $data.groups val}}
+        {{if val.message_type == "TMSG"}}<!--好友消息-->
+            <div class="mdc-list-item notice-item {{val.message_type}} count-{{val.noread}}" 
+                 data-from-user-id="{{val.from_user_id}}" 
+                 data-message-type="{{val.message_type}}"
+                 data-event-type="{{val.event_type}}"
+                 data-mdc-auto-init="MDCRipple">
+                <div class="img-box mdc-list-item__start-detail" data-word="{{val.word}}">
+                    <div class="inner from_user_avatar" style="background-image: url('{{val.from_user_avatar}}');"></div>
+                </div>
+                <span class="mdc-list-item__text">{{if val.from_user_nickname !=''}}{{val.from_user_nickname}}{{else}}通信录好友{{/if}}
+                    <span class="msg mdc-list-item__text__secondary">{{val.latest_content}}</span>
+                </span>
+                <sp    an class="mdc-list-item__end-detail">
+                    <time datetime="{{val.time}}" class="clock">{{val.latest_create_time}}</time>
+                    <span class="no-read count-{{val.noread}}">{{if val.unread_count >0}}{{val.unread_count}}{{/if}}</span>
+                </span>
+            </div>
+            <div class="mdc-list-divider mdc-list-divider--inset" role="separator"></div>
+        {{/if}}
+        {{if val.message_type == "TEVT"}}<!--系统消息-->
+            <div class="mdc-list-item notice-item {{val.message_type}} count-{{val.noread}}"
+                 data-from-user-id="{{val.from_user_id}}" 
+                 data-message-type="{{val.message_type}}"
+                 data-event-type="{{val.event_type}}"
+                 data-mdc-auto-init="MDCRipple">
+                <div class="img-box mdc-list-item__start-detail" data-word="&#xE7F5;">
+                    <div class="inner from_user_avatar"></div>
+                </div>
+                <span class="mdc-list-item__text">{{val.latest_title}}
+                    <span class="msg mdc-list-item__text__secondary">{{val.latest_content}}</span>
+                </span>
+                <sp    an class="mdc-list-item__end-detail">
+                    <time datetime="{{val.time}}" class="clock">{{val.latest_create_time}}</time>
+                    <span class="no-read count-{{val.noread}}">{{if val.unread_count >0}}{{val.unread_count}}{{/if}}</span>
+                </span>
+            </div>
+            <div class="mdc-list-divider mdc-list-divider--inset" role="separator"></div>
+        {{/if}}
+        {{/each}}
+    </script>
+</nav>

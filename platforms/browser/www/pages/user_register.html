@@ -1,0 +1,48 @@
+<main class="register">
+  <div class="inner">
+  <h1 class="mdc-typography--display1 lead_text">register elift</h1>
+  <p class="error" id="error"></p>
+  <form id="register-form">
+    <div>
+      <div class="mdc-form-field">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input id="phone" name="phone" type="text" class="mdc-textfield__input" required pattern="^1[34578]\d{9}$">
+          <label for="phone" class="mdc-textfield__label">手机号</label>
+        </div>
+      </div>
+      
+      <div class="mdc-form-field">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input id="captcha" name="captcha" type="text" class="mdc-textfield__input" required="required">
+          <label for="captcha" class="mdc-textfield__label">验证码</label>
+          <input type="button" class="mdc-button mdc-button--compact" data-mdc-auto-init="MDCRipple" onclick="user.sendSms(this)" value="免费获取验证码"></input>
+        </div>
+      </div>
+
+      <div class="mdc-form-field">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input id="password" name="password" type="password" class="mdc-textfield__input" required="required" pattern="[A-Za-z].*[0-9]|[0-9].*[A-Za-z]">
+          <label for="password" class="mdc-textfield__label">密码</label>
+        </div>
+        <p id="password-helptext" class="mdc-textfield-helptext" aria-hidden="true">
+          密码必须是数组与字母组合
+        </p>
+      </div>
+
+      <div class="mdc-form-field">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input id="confirm_password" name="confirm_password" type="password" class="mdc-textfield__input" onchange='user.checkPasswords()' required="required" pattern="[A-Za-z].*[0-9]|[0-9].*[A-Za-z]">
+          <label for="confirm_password" class="mdc-textfield__label">确认密码</label>
+        </div>
+      </div>
+    </div>
+    <p class="action_button">
+      <button type="submit" class="mdc-button mdc-button--raised mdc-ripple-surface" data-mdc-auto-init="MDCRipple">注册
+      </button>
+    </p>
+    <div class="goto_login_text mdc-typography--caption">
+        <a href="#user/login">->已有账号了去登录</a>
+    </div>
+  </form>
+</div>
+</main>

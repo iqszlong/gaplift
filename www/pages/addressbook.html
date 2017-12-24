@@ -1,0 +1,91 @@
+<div class="main addressbook">
+	<div class="mdc-toolbar" id="dynamic-demo-toolbar">
+        <div class="mdc-toolbar__row">
+          <div class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <nav id="dynamic-tab-bar" class="mdc-tab-bar mdc-tab-bar--indicator-accent" role="tablist">
+              <a role="tab" aria-controls="panel-1" class="mdc-tab mdc-tab--active" href="#panel-1">联系人</a>
+              <a role="tab" aria-controls="panel-2" class="mdc-tab" href="#panel-2">分组</a>
+              <a role="tab" aria-controls="panel-3" class="mdc-tab" href="#panel-3">组织</a>
+              <span class="mdc-tab-bar__indicator"></span>
+            </nav>
+          </div>
+        </div>
+    </div>
+	<section>
+	    <div class="panels">
+	      	<div class="panel list resultList addressbook-item employee_list" id="panel-1" role="tabpanel" >
+	      	<script type="text/html" id="employee_list">
+	      		<div class="mdc-list-group work-list">
+					<ul class="mdc-list mdc-list--two-line mdc-list--avatar-list">
+						{{each $data item}}
+						<a class="mdc-list-item repair work-item" data-mdc-auto-init="MDCRipple" href="#addressbook/detail/{{item.id}}">
+							<div class="img-box mdc-list-item__start-detail" role="presentation" data-word="维修">
+							  <div class="inner" style="background-image: url('')"></div>
+							</div>
+							<span class="mdc-list-item__text">{{item.name}}
+							    <span class="mdc-list-item__text__secondary"></span>
+							</span>
+							<span class="mdc-list-item__end-detail">
+					            <time datetime="" class="date">{{item.organizations[0].organization_name}}</time>
+					            <span class="clock">{{item.roles[0].role_name}}</span>
+				            </span>
+						</a>
+						<hr class="mdc-list-divider mdc-list-divider--inset">
+						{{/each}}
+					</ul>
+				</div>
+	      	</script>
+<!-- 			    <script id="addressbook-item" type="text/html">
+			        {{each $data as value}}
+			        {{if value.flagLetter}}
+					<p id="" class="groupTitle">{{value.flagLetter}}</p>
+			        {{/if}}
+					<ul class="mdc-list mdc-list-group address-subheader">
+					    <li class="mdc-list-item" onclick="addressbook.clickInfo(this)">
+					       <img class="mdc-list-item__start-detail" src="{{value.headUrl}}" width="45" height="45">{{value.name}}
+					       <span class="mdc-list-item__end-detail">{{value.company}}</span>
+					    </li>
+					    <li class="mdc-list-divider mdc-list-divider--inset" role="separator"></li>
+					</ul>
+					{{/each}}
+				</script> -->
+    		</div>
+    		<div class="panel list resultList addressbook-item" id="panel-2" role="tabpanel" hidden="true">分组
+<!-- 			    <script id="addressbook-item" type="text/html">
+			        {{each $data as value}}
+			        {{if value.flagLetter}}
+					<p id="" class="groupTitle">{{value.flagLetter}}</p>
+			        {{/if}}
+					<ul class="mdc-list mdc-list-group address-subheader">
+					    <li class="mdc-list-item" onclick="addressbook.clickInfo(this)">
+					       <img class="mdc-list-item__start-detail" src="{{value.headUrl}}" width="45" height="45">{{value.name}}
+					       <span class="mdc-list-item__end-detail">{{value.company}}</span>
+					    </li>
+					    <li class="mdc-list-divider mdc-list-divider--inset" role="separator"></li>
+					</ul>
+					{{/each}}
+				</script> -->
+    		</div>
+    		<div class="panel list resultList addressbook-item" id="panel-3" role="tabpanel" hidden="true">组织
+<!-- 			    <script id="addressbook-item" type="text/html">
+			        {{each $data as value}}
+			        {{if value.flagLetter}}
+					<p id="" class="groupTitle">{{value.flagLetter}}</p>
+			        {{/if}}
+					<ul class="mdc-list mdc-list-group address-subheader">
+					    <li class="mdc-list-item" onclick="addressbook.clickInfo(this)">
+					       <img class="mdc-list-item__start-detail" src="{{value.headUrl}}" width="45" height="45">{{value.name}}
+					       <span class="mdc-list-item__end-detail">{{value.company}}</span>
+					    </li>
+					    <li class="mdc-list-divider mdc-list-divider--inset" role="separator"></li>
+					</ul>
+					{{/each}}
+				</script> -->
+    		</div>
+	    </div>
+	</section>	
+</div>
+<div class="slidePage flex-def flex-zTopBottom flex-zCenter flex-cEnd" ontouchend="addressbook.touchEnd()"  ontouchmove="addressbook.move()">
+	<div class="wrap"></div>
+</div>
+<div class="letter"></div>
