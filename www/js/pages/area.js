@@ -2,6 +2,7 @@ var area = {
 	data: {
 		title:'小区',
 		page:'area',
+		tips:'无小区列表信息',
 		createMethod:'/district/create',
 		getMethod:'/district/get',
 		updateMethod:'/district/update',
@@ -59,6 +60,7 @@ var area = {
 			switch(res.code){
 				case 0:
 					var area_list = res.data.list;
+					if(area_list != null && area_list != undefined && area_list.length != 0 ){
 						area_list.page = _self.data.page;
 						area_list.title = _self.data.title;
 					console.log('area_list',area_list);
@@ -70,7 +72,21 @@ var area = {
 			        $('[role=toolbars]').empty().append(add);
 			        $('.lift_list').append(html);
 			        $('.lift_titles').append(title);
+					}else{
+						var sign_none = {};
+						sign_none.page = _self.data.page;
+						sign_none.tips =  _self.data.tips;
+						sign_none.title = _self.data.title;
+						console.log(sign_none);
+				        var title = template('lift_title',sign_none);
+				        var add = template('add',sign_none);
+				         $('.mdc-list').empty();
+				        $('[role=toolbars]').empty().append(add);
+				        $('.lift_list').text(sign_none.tips);
+				        $('.lift_titles').empty().append(title);
 
+					
+					}
 					break;
 				default:
 					app.showSnackbar(res.message);

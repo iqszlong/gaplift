@@ -37,7 +37,7 @@
           {{if item.id == $data.item_data}}{{set check='checked'}}{{/if}}
           <div class="mdc-list-item m dc-form-field">
             <div class="mdc-radio">
-              <input class="mdc-radio__native-control" type="radio" {{check}} name="{{$data.text_field_name}}">
+              <input class="mdc-radio__native-control" type="radio" {{check}} name="{{$data.text_field_name}}" value="{{item.id}}">
               <div class="mdc-radio__background">
                 <div class="mdc-radio__outer-circle"></div>
                 <div class="mdc-radio__inner-circle"></div>

@@ -36,6 +36,8 @@ var userinfo = {
         	e.preventDefault();
         	localStorage.clear();
             app.navTo('user_login');
+
+            location.hash = '#user/login';
         });
         //服务与企业ID切换
         $('body').on('click','.change',function(e){
@@ -68,12 +70,14 @@ var userinfo = {
 	avatar:function(){
         app.navTo('edit_avatar');
         htmlImport.setItem(config.importFile,'msg_snackbar');
-        this.setUpload();
+        
         //编辑头像之前的初始值
         var info = JSON.parse(localStorage.getItem('login_user'));
-        var tpl = htmlImport.tpl['edit_avatar'];
-        var html  = template.render(tpl,info);
-        console.log(html);
+        //var tpl = htmlImport.tpl['edit_avatar'];
+        var html  = template('avatar_form_edit',info);
+        //console.log(html);
+        $('#edit_avatar_form').empty().append(html);
+        this.setUpload();
 
         $('#edit_avatar_form').submit(function(e){
         	e.preventDefault();
@@ -91,6 +95,7 @@ var userinfo = {
 			 		 switch(res.code){
 			 		 	case 0:
 			 		 	  	app.showSnackbar('编辑成功');
+                            window.history.back(-1);
 			 		 	  	//更新浏览器缓存用户信息
 	                  //    var _t = setTimeout(function(){
 		              //                clearTimeout(_t);

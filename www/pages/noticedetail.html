@@ -16,7 +16,12 @@
 	            <div class="img-box mdc-list-item__start-detail" data-word="{{val.word}}"><div class="inner from_user_avatar" style="background-image: url('{{val.from_user_avatar}}')"></div></div>
 	            <div class="notice-detail">
 	            <div class="notice-name">{{val.name}}</div>
-	            <div class="notice-comment">{{val.content}}</div>
+                {{if val.event_param}}
+                    <a href="#flow/detail/{{val.event_param}}"><div class="notice-comment">{{val.content}}【点击查看】</div></a>
+                {{else}}
+                    <div class="notice-comment">{{val.content}}</div>
+                {{/if}}
+	            
 	            </div>
 	        </li>
 		{{/each}}

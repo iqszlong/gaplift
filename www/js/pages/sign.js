@@ -2,6 +2,7 @@ var sign = {
 	data: {
 		title:'签到',
 		page:'sign',
+		tips:'无签到信息',
 		createMethod:'/checkin/record/create',
 		getMethod:'/checkin/record/get',
 		addopt:[
@@ -39,21 +40,36 @@ var sign = {
 			console.log('getarealist',res.data);
 			switch(res.code){
 				case 0:
+
 					var area_list = res.data.list;
+					if(area_list != null && area_list != undefined && area_list.length != 0 ){
 						area_list.page = _self.data.page;
 						area_list.title = _self.data.title;
-					console.log('area_list',area_list);
-					//渲染
-			        var html = template('lift_items',area_list);
-			        var title = template('lift_title',area_list);
-			        var add = template('add',area_list);
-			         $('.mdc-list').empty();
-			        $('[role=toolbars]').empty().append(add);
-			        $('.lift_list').append(html);
-			        $('.lift_titles').append(title);
-			       
-
+						console.log('area_list',area_list);
+						//渲染
+				        var html = template('lift_items',area_list);
+				        var title = template('lift_title',area_list);
+				        var add = template('add',area_list);
+				         $('.mdc-list').empty();
+				        $('[role=toolbars]').empty().append(add);
+				        $('.lift_list').empty().append(html);
+				        $('.lift_titles').empty().append(title);
+					}else{
+						var sign_none = {};
+						sign_none.page = _self.data.page;
+						sign_none.tips =  _self.data.tips;
+						sign_none.title = _self.data.title;
+						console.log(sign_none);
+				        var title = template('lift_title',sign_none);
+				        var add = template('add',sign_none);
+				         $('.mdc-list').empty();
+				        $('[role=toolbars]').empty().append(add);
+				        $('.lift_list').text(sign_none.tips);
+				        $('.lift_titles').empty().append(title);
+					}
+					
 					break;
+					
 				default:
 					app.showSnackbar(res.message);
 			}
@@ -175,7 +191,7 @@ var sign = {
 		    var map = new BMap.Map("allmap");
 		    var geolocation = new BMap.Geolocation();
 		    var geoc = new BMap.Geocoder();  
-		    map.centerAndZoom(new BMap.Point(116.331398,39.897445),11);
+		    // map.centerAndZoom(new BMap.Point(116.331398,39.897445),11);
 		    map.setZoom(14); 
 			map.enableScrollWheelZoom(true);
 		
@@ -210,12 +226,13 @@ var sign = {
 						console.log(); 
 						var mPoint = new BMap.Point(res.data.long,res.data.lat);//在地图上确定范围 
 						//map.enableScrollWheelZoom(); 
-						map.centerAndZoom(mPoint,11);
+						//map.centerAndZoom(mPoint,11);
 						map.setZoom(14); 
 						var circle = new BMap.Circle(mPoint,res.data.distance,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.3, strokeOpacity: 0.3});
 					    map.addOverlay(circle);
 					    var local =  new BMap.LocalSearch(map, {renderOptions: {map: map, autoViewport: false}});  
 					    local.searchNearby(map.addOverlay(marker),mPoint,res.data.distance);
+					    map.centerAndZoom(new BMap.Point(longitude,latitude),14);
 				})
 				
 

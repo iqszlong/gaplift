@@ -26,8 +26,8 @@ var app ={
 	getApi:function(){
 		//电梯类型
         var lift_category = localStorage.getItem('lift_category');
-        if(lift_category === null){
-        api.getPost('/lift/category/list').then(function(res){
+        if(lift_category == null || location.hash == '#lift'){
+        	api.getPost('/lift/category/list').then(function(res){
         		console.log('234',res.code);
                 if (res.code == 0){
                     localStorage.setItem('lift_category', JSON.stringify(res.data.list));
@@ -40,25 +40,37 @@ var app ={
         //获取员工列表
         var employeeList = localStorage.getItem('employeeList');
         if(employeeList == null || location.hash == '#employee'){
-        api.getPost('/employee/list').then(function(res){
+        	api.getPost('/employee/list').then(function(res){
                 if(res.code == 0){
                     localStorage.setItem('employeeList', JSON.stringify(res.data.list));
                 }else{
                     app.showSnackbar(res.message);
                 }
-        });
+        	});
         }
         //获取关联企业
         var relevant_merchantList = localStorage.getItem('relevant_merchantList');
         if(relevant_merchantList == null || location.hash == '#merchant'){
-        api.getPost('/merchant/list').then(function(res){
+            api.getPost('/merchant/list').then(function(res){
                 if(res.code == 0){
                     localStorage.setItem('relevant_merchantList', JSON.stringify(res.data.list));
                 }else{
                     app.showSnackbar(res.message);
                 }
-        });
+            });
         }
+        //获取小区列表
+        var district = localStorage.getItem('district');
+        if(location.hash == '#area' || district == null){
+            api.getPost('/district/list').then(function(res){
+                if (res.code == 0){
+                    localStorage.setItem('district', JSON.stringify(res.data.list));
+                }else{
+                    app.showSnackbar(res.message);
+                }
+            });
+        }
+        
 	},
 	nav:function() {
 		var iconTextTabBar = new mdc.tabs.MDCTabBar($('#icon-text-tab-bar')[0]);
@@ -66,7 +78,7 @@ var app ={
 		switch(_page){
 			case '#notice':
 			case '#work':
-			case '#address':
+			case '#addressbook':
 			case '#userinfo':
 			var activeIndex = $('#icon-text-tab-bar a').index($('[href='+ _page +']'));
 			if (activeIndex >= 0) {
@@ -142,7 +154,8 @@ var app ={
 	checkLogin:function(){
 		var user_info = localStorage.getItem('login_user');
 		if(user_info ===null){
-			location.hash = 'user/login';
+			location.hash = '#user/login';
+			return false;
 		}
 
 	},
@@ -177,7 +190,15 @@ var app ={
 		this.checkLogin();
 		routing.init();
 		api.session();
-        this.getApi();
+		//如果有企业编号与服务编号在处理
+		var user_info = localStorage.getItem('login_user');
+		if(user_info =null){
+			this.getApi();
+		}
+		
+        
+
+        htmlImport.setItem(config.importFile,'msg_snackbar');
 	}
 	
 }

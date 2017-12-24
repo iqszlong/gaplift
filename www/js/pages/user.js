@@ -31,7 +31,7 @@ var user = {
 	                    app.showSnackbar('注册成功!返回登录界面');
 	                    var _t = setTimeout(function(){
 	                         clearTimeout(_t);
-	                         location.hash = 'user/login';
+	                         location.hash = '#user/login';
 	                    },3000);
 	                break;
 	            };
@@ -135,7 +135,7 @@ var user = {
             console.log(res);
               switch(res.code){
                 case 0:
-                  app.showSnackbar('验证码：'+res.data);
+                  app.showSnackbar('验证码已发送');
                   break;
                 case 10105: 
                   app.showSnackbar('手机号已经注册过,去登录吧！');

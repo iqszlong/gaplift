@@ -22,6 +22,20 @@ var addressbook = {
 
         });
 
+        api.getPost('/workgroup/list',{parent_id:"005"}).then(function(res){
+            if(res.code){
+                app.showSnackbar(res.message);
+            }else{
+                return res.data.list;
+            }
+        }).then(function(data){
+            console.log(data);
+            var html = template('group_list',data);
+            $('.group_list').empty().append(html);
+        });
+
+
+
         //阻止选卡切换默认地址栏提交
         $(".addressbook .mdc-tab").on('click',function(e){
             e.preventDefault();
@@ -33,7 +47,7 @@ var addressbook = {
     detail:function(){
         app.navTo('addressbook_item');
 
-        //或许员工详细信息
+        //获取员工详细信息
         var employee_id = location.hash.split('/')[2];
 
         api.getPost('/employee/get',employee_id).then(function(res){
@@ -46,6 +60,11 @@ var addressbook = {
                     //console.log(html);
                     $('.contacts').empty().append(html);
 
+                    //如果会话连接断开，请求重连
+                    if(!socket.SocketCreated){
+                        socket.init();
+                    }
+                    //notice.init();
                     notice.setEvent();
                     break;
                 default:
@@ -56,11 +75,18 @@ var addressbook = {
     },
 	init:function(){
         htmlImport.setItem(config.importFile,'frame');
-        app.nav();
-        app.dropmenu();
 		htmlImport.setItem(config.importFile,'addressbook');
-		this.getSortData();
-        //初始化选卡切换
-        var dynamicTabBar = window.dynamicTabBar = new mdc.tabs.MDCTabBar(document.querySelector('#dynamic-tab-bar'));
+        
+        var t =setTimeout(function(){
+            addressbook.getSortData();
+            app.nav();
+            app.dropmenu();
+            //初始化选卡切换
+            var dynamicTabBar = window.dynamicTabBar = new mdc.tabs.MDCTabBar(document.querySelector('#dynamic-tab-bar'));
+        },100);
+
+		
+
+       
 	}
 }

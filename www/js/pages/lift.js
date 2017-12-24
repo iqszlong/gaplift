@@ -1,5 +1,6 @@
 var lift = {
 	data:{},
+	tips:'无电梯列表信息',
 	elements:{
 			registration_code:"注册代码",
 			serial_number:"出厂编号",
@@ -12,7 +13,7 @@ var lift = {
 			vendor:"厂家",
 			load:"载重量",
 			speed:"出厂速度",
-			district_name:"小区",
+			district_id:"小区",
 			relations:{
 				merchants:"企业",
 				employees:"员工"
@@ -22,20 +23,26 @@ var lift = {
 	//获取电梯列表
 	getLiftlist:function(){
 		var _self = this;
+		htmlImport.setItem(config.importFile,'msg_snackbar');
 		_self.data = {};
 		var request = api.getPost('/lift/list');
+
 
 		request.then(function(res){
 			//console.log('getLiftlist',res.data);
 			switch(res.code){
 				case 0:
 					var lift_list = res.data.list;
+				if(lift_list != null && lift_list != undefined && lift_list.length != 0 ){
 					console.log('lift_list',lift_list);
 					//渲染
 			        var html = template('lift_items',lift_list);
 			        //console.log(html);
 			        $('.lift_list').empty().append(html);
-					break;
+			    }else{
+					$('.lift_list').text(_self.tips);
+			    }
+			    break;
 				default:
 					app.showSnackbar(res.message);
 			}	
@@ -53,7 +60,7 @@ var lift = {
         	var html = template('lift_info',_self.data);
 			$('.lift_info').empty().append(html);
 
-        }else{//无data对象，请求借口获取
+        }else{//无data对象，请求接口获取
 
         	var request = api.getPost('/lift/get',lift_id);
 			request.then(function(res){
@@ -94,23 +101,83 @@ var lift = {
         }
 
    
-        //监听电梯提交按钮
-  		//var request = api.getPost('/lift/update',_self.data);
-		// 		 request.then(function(res){
-		// 			//console.log('getLiftinfo',res.data);
-		// 			switch(res.code){
-		// 				case 0:
-		// 			        //清除对象数组data
-		// 			        _self.data = {};
-		// 			        history.go(-1);
-		// 					break;
-		// 				default:
-		// 					app.showSnackbar(res.message);
-		// 			}
-		// });
-		
+        //监听电梯提交编辑按钮
+        $('.save_lift').on('click',function(e){
+        	e.preventDefault();
+        	console.log(_self.data);
+        	var request = api.getPost('/lift/update',_self.data);
+				request.then(function(res){
+					//console.log('getLiftinfo',res.data);
+					switch(res.code){
+						case 0:
+					        //清除对象数组data
+					        //_self.data = {};
+					        //location.hash = "#lift";
+					        app.showSnackbar("保存成功!");
+							break;
+						default:
+							app.showSnackbar(res.message);
+					}
+			});
+        });
 	},
-	detailUpdata:function(){//更新修改数据-对象存储，不提交
+	//添加电梯
+	add:function(){
+	  	var _self = this;
+	  	app.navTo('lift_add');
+	  	//渲染
+      	var html = template('lift_add',_self.data);
+      	var new_data = {
+      		"registration_code":"",
+    		"serial_number":"",
+    		"internal_number":"",
+    		"code":"",
+    		"name":"",
+    		"district_id":"",
+    		"category":"",
+    		"brand":"",
+    		"vendor":"",
+    		"load":"",
+    		"speed":"",
+    		"building_level":"",
+    		"level":"",
+   			"address_area_id":"",
+    		"address":"",
+    		"operating_status":"",
+    		"relations":{}
+      	};
+      	//console.log(html);
+     	$('.lift_add').empty().append(html);
+
+      	//监听电梯提交编辑按钮
+	    $('.save_add_lift').off().on('click',function(e){
+	    	e.preventDefault();
+	    	var add_data = $.extend(new_data,_self.data);
+	    	add_data.name = add_data.code;
+
+	    	console.log(123456789);
+
+	    	if( add_data.name==''){
+				app.showSnackbar("创建电梯编号不能为空!");
+				return;  
+	    	}
+
+	    	var request = api.getPost('/lift/create',add_data);
+				request.then(function(res){
+					//console.log('getLiftinfo',res.data);
+					switch(res.code){
+						case 0:
+					        //清除对象数组data
+					        //_self.data = {};
+					        //location.hash = "#lift";
+					        app.showSnackbar(_self.data.code+"创建成功!");  
+							break;
+						default:
+							app.showSnackbar(res.message);
+					}
+			});
+	    });
+	  
 
 	},
 	//文本编辑-对象存储，不提交
@@ -135,7 +202,8 @@ var lift = {
 			e.preventDefault();
 
 			_self.data[text_field_name] = $('#'+text_field_name).val();
-			//history.go(-1);
+			//console.log(_self.data[text_field_name]);
+			history.go(-1);
 
 		});
 		
@@ -186,11 +254,11 @@ var lift = {
         i_data.text_field_name = text_field_name;
 
         switch(text_field_name){
-        	case 'category':
+        	case 'category'://类型
         		i_data.select_items = JSON.parse(localStorage.getItem('lift_category'));
         		break;
-        	case 'operating_status':
-        	i_data.select_items = [{
+        	case 'operating_status'://运行状态
+        		i_data.select_items = [{
 									  "id": "TOK",
 									  "name": "正常"
 									}, {
@@ -200,10 +268,13 @@ var lift = {
 									  "id": "TMAINTAIN",
 									  "name": "保养状态"
 									}];
+				break;
+			case 'district_id'://所属小区
+				i_data.select_items = JSON.parse(localStorage.getItem('district'));
         	default:
         }
 
-        //console.log('i_data',i_data);
+        console.log('i_data',i_data);
 		//渲染
 		var html = template('item_edit',i_data);
 		$('.select_edit').empty().append(html);
@@ -212,10 +283,14 @@ var lift = {
 	  	$('#edit_updata_button').on('click',function(e){
 			e.preventDefault();
 			//获取radio的文本内容
-			var item = $('input[name='+text_field_name+']:checked').parent().next().text(); 
+			var item = $('input[name='+text_field_name+']:checked').val(); 
 			//console.log('item',item);  
-
 			_self.data[text_field_name] = item;
+			if(text_field_name == 'district_id'){//获取修改小区的名字
+
+				var item_name = $('input[name='+text_field_name+']:checked').parent().next().html();
+				_self.data['district_name'] = item_name;
+			}
 			history.go(-1);
 		});
 	  	

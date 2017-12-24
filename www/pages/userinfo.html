@@ -7,14 +7,19 @@
         </li>
         <li class="mdc-list-divider" role="separator"></li>
         <a class="mdc-list-item" href="#userinfo/avatar">照片
-           <img class="mdc-list-item__end-avatar" src="{{avatar}}" width="40" height="40" alt="avatar">
+        {{if avatar == null}}
+         <div class="mdc-list-item__end-avatar">编辑</div>
+        {{else}}
+        <img class="mdc-list-item__end-avatar" src="{{avatar}}" width="40" height="40" alt="">
+        {{/if}}
+           
         </a>
         <li class="mdc-list-divider" role="separator"></li>
         <li class="mdc-list-item">注册号
-           <span class="mdc-list-item__end-detail">123</span>
+           <span class="mdc-list-item__end-detail">{{id}}</span>
         </li>
         <li class="mdc-list-divider" role="separator"></li>
-        <li class="mdc-list-item">姓名<span class="mdc-list-item__end-detail">{{name}}</span></li>
+        <li class="mdc-list-item">姓名<span class="mdc-list-item__end-detail">{{nickname}}</span></li>
      </ul>
      <ul class="mdc-list mdc-list-group list-group__subheader">
         <h5 class="mdc-list-group__subheader subheader">联系方式</h5>
@@ -36,7 +41,7 @@
             {{/each}}
         {{/each}}
      </ul>
-     <ul class="mdc-list mdc-list-group list-group__subheader">
+<!--      <ul class="mdc-list mdc-list-group list-group__subheader">
         <h5 class="mdc-list-group__subheader subheader">相册</h5>
         <section class="album">
            <div class="mdc-grid-list mdc-grid-list--tile-gutter-4">
@@ -56,7 +61,7 @@
             </ul>
            </div>
         </section>
-     </ul>
+     </ul> -->
      <ul class="mdc-list mdc-list-group list-group__subheader">
         <h5 class="mdc-list-group__subheader subheader">操作</h5>
         <div class="loginout">

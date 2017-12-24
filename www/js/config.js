@@ -1,8 +1,11 @@
 var config = {
-    apiip:'http://192.168.8.240:8090/',
-    wshost:'ws://192.168.8.240:8090',
+    //apiip:'http://192.168.8.240:8090/',
+    //wshost:'ws://192.168.8.240:8090',
     //apiip:'http://http://120.76.84.82:8080/',
     //wshost:'ws://http://120.76.84.82:8080',
+    
+    apiip:'http://admin.1lift.cn',
+    wshost:'ws://admin.1lift.cn',
     //pagesRoot: '../pages/',
     importJs: [
         // 'libs/webcomponentsjs/webcomponents-lite.js',
@@ -122,6 +125,11 @@ var config = {
             dom:'body',
             mode:'replace'          
         },{
+            name:'lift_add',
+            path:'pages/lift_add.html',
+            dom:'body',
+            mode:'replace'          
+        },{
             name:'modal_form',
             path:'public/modal_form.html',
             dom:'body',
@@ -154,6 +162,21 @@ var config = {
         },{
             name:'flow_item',
             path:'pages/flow_item.html',
+            dom:'body',
+            mode:'replace'
+        },{
+            name:'flow_art_tpl',
+            path:'pages/flow_art_tpl.html',
+            dom:'body',
+            mode:'replace'
+        },{
+            name:'flow_item_edit',
+            path:'pages/flow_item_edit.html',
+            dom:'body',
+            mode:'replace'
+        },{
+            name:'invoice_item_list',
+            path:'pages/invoice_item_list.html',
             dom:'body',
             mode:'replace'
         }

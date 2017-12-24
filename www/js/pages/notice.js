@@ -22,15 +22,20 @@ var notice = {
 
 	},
 	updateList:function(data){
-		console.log('N-updateList',data);
+		//console.log('N-updateList',data);
 		var _self = this;
-		var list = $(document).find('.notice-list');
-		if(data != undefined){
-			var html = template('notice_item',data);
-			list.empty().append(html);
-		}else{
-			socket.getListdata();
+		var url = location.hash;
+
+		if( url=='#notice'){
+			var list = $(document).find('.notice-list');
+			if(data != undefined){
+				var html = template('notice_item',data);
+				list.empty().append(html);
+			}else{
+				socket.getListdata();
+			}
 		}
+		
 	},
 	createnotice:function(){
 		app.navTo('notice_detail');
@@ -44,6 +49,7 @@ var notice = {
 		if(data != undefined){
 			console.log('1',_self.data.response_uid);
 			console.log('2',data.from_user_id);
+
 			if(_self.data.response_uid == data.from_user_id){//当前列表与新获取消息是同一个人所发
 				console.log('response_connect',_self.data.response_connect);
 				if(_self.data.response_connect){//第一次进入会话列表
@@ -71,22 +77,33 @@ var notice = {
 					//滚动条默认停在最下面
 					_self.for_bottom();
 				}else{//是收到新会话
-					var text = data.messages[0].content;
-			        str  = '<li class="mdc-list-item send">';
-			        str += '<div class="img-box mdc-list-item__start-detail" data-word="{{val.word}}"><div class="inner from_user_avatar" style="background-image: url('+ data.from_user_avatar+')"></div></div>';
-			        str += '<div class="notice-detail">';
-			        str += '<div class="notice-name"></div>';
-			        str += '<div class="notice-comment">'+text+'</div>'
-			        str += '</div></li>';
+					var funcName1 = location.hash.split('/')[1];//防止系统消息通知出错
+					if(funcName1 =='createnotice'){
+						var text = data.messages[0].content;
+				        str  = '<li class="mdc-list-item send">';
+				        str += '<div class="img-box mdc-list-item__start-detail" data-word="{{val.word}}"><div class="inner from_user_avatar" style="background-image: url('+ data.from_user_avatar+')"></div></div>';
+				        str += '<div class="notice-detail">';
+				        str += '<div class="notice-name"></div>';
+				        str += '<div class="notice-comment">'+text+'</div>'
+				        str += '</div></li>';
 
-			        $('.mdc-list').append(str);
+				        $('.mdc-list').append(str);
 
-			        //滚动条默认停在最下面
-					_self.for_bottom();
+				        //滚动条默认停在最下面
+						_self.for_bottom();
+
+					}else{
+						console.log(009990099);
+						var funcName = location.hash;
+						if(funcName =='#notice'){//刷新当前列表
+							socket.getListdata();
+						}
+					}
 				}
 				
 			}else{//当前列表与新获取消息不是同一个人所发
 				//如果用户在消息页面，则刷新消息列表
+				console.log(009990099);
 				var funcName = location.hash;
 				if(funcName =='#notice'){//刷新当前列表
 					socket.getListdata();
@@ -178,7 +195,7 @@ var notice = {
 			var data ={};
 			var event_type = $(this).data('event-type');//事件消息
 			var message_type = $(this).data('message-type');//普通消息
-			var fuid = $(this).data('from-user-id');
+			var fuid = $(this).data('from-user-id').toString();
 					
 			data.user_id = fuid;
 			//_self.sameItem(fuid);
@@ -191,6 +208,7 @@ var notice = {
 			//信息数目
 			data.skip = 0;
 			data.size = 50;
+			//console.log('data11',data);
 			//请求回话详情
 			socket.getMsgdata(data);
 			//添加跳转链接

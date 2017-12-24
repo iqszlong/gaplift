@@ -10,7 +10,7 @@
             
         </section>
         <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbars">
-        	<script type="text/html" id="add">
+        	<script type="text/html" id="add">	
         	{{if page == "sign"}}
         	{{else}}
         		<a href="#{{page}}/create" class="material-icons mdc-toolbar__icon" aria-label="search" alt="search">add</a>
@@ -21,14 +21,19 @@
 </div>
 <div>
 	<div class="mdc-list-group work-list">
-		<div class="mdc-list mdc-list--two-line mdc-list--avatar-list lift_list">
+		<div class="mdc-list mdc-list--two-line mdc-list--avatar-list lift_list conment_list">
+
 			<script type="text/html" id="lift_items">
 				{{each $data val}}
 				<a class="mdc-list-item repair work-item" data-mdc-auto-init="MDCRipple" href="#{{page}}/detail/{{val.id}}">
-					<span class="mdc-list-item__text">{{val.name}}
+					<span class="mdc-list-item__text">
+						{{val.name}}
+						{{val.district_name}}
 					    <span class="mdc-list-item__text__secondary">
+
 					    {{if val.address_area_id}}
-					    {{val.address_province}}{{val.address_town}}{{val.address_area}}{{val.address}}
+					  <p>【{{val.address_province}} {{val.address_town}} {{val.address_area}}】</p>
+					  <p>&nbsp;&nbsp;&nbsp;{{val.address}}</p>
 					    {{else}}
 
 					    {{/if}}
@@ -36,10 +41,15 @@
 					</span>
 					<span class="mdc-list-item__end-detail">
 			            <time datetime="" class="date">{{val.create_time}}</time>
-			            {{if val.is_sign}}
-			             <time datetime="" class="date">{{val.period_date}}</time>
-			            <span>已签</span>
-			            {{/if}}	
+			            {{if $data.page == 'sign'}}
+				            {{if val.is_sign}}
+				             <time datetime="" class="date">{{val.actual_checkin_time }}</time>
+				            <span class="sign_ok">已签</span>
+				            {{else}}
+				               <time datetime="" class="date">{{val.period_date}} {{val.period_time}}</time>
+				            <span class="sign_no">未签</span>
+				            {{/if}}	
+			            {{/if}}
 			           <!--  <span class="clock">22:30</span> -->
 		            </span>
 				</a>

@@ -29,7 +29,7 @@
 			{{if val.type == "text"}}
 
 			<a class="mdc-list-item" href="#area/editText/{{val.name}}/{{item}}">
-				<div class="mdc-list-item">{{val.label}}
+				{{val.label}}
 					<span class="mdc-list-item__end-detail" name="{{val.name}}" text="{{val.label}}">
 						{{if val.name == "employees"}}
 							{{each val.value op}}
@@ -45,12 +45,12 @@
 						
 					</span>
 					<i class="material-icons next-edit">keyboard_arrow_right</i>
-				</div>
+				
 			</a>
 			{{/if}}
 			{{if val.type == "status"}}
 			<a class="mdc-list-item">
-				<div class="mdc-list-item">{{val.label}}
+				{{val.label}}
 					      <span class="mdc-list-item__end-detail basic-switch">
 					        <section class="example">
 					          <div class="mdc-switch">
@@ -66,14 +66,14 @@
 					          </div>
 					        </section>
 					        </span>
-				</div>
+				
 			</a>
 		    {{/if}}
 			
 
 		 	{{if val.type == 'Select-Multiple'}}
 		     	<a class="mdc-list-item" href="#area/editSelectMul/{{val.name}}/{{item}}">
-					<div class="mdc-list-item">{{val.label}}
+					{{val.label}}
 						<span class="mdc-list-item__end-detail" name="{{val.name}}" text="{{val.label}}">
 						{{if val.name == "employees"}}
 							{{each val.value op}}
@@ -89,18 +89,18 @@
 						
 					</span>
 					 	<i class="material-icons next-edit">keyboard_arrow_right</i>
-					</div>
+					
 				</a>
 		    {{/if}}
 
 		    {{if val.type == 'area-place'}}
 						<a class="mdc-list-item" href="#area/place/{{val.name}}/{{item}}">
-							<div class="mdc-list-item">{{val.label}}
+							{{val.label}}
 								<span class="mdc-list-item__end-detail" name="{{val.name}}" text="{{val.label}}">
 								{{val.value}}
 								</span>
 								<i class="material-icons next-edit">keyboard_arrow_right</i>
-							</div>
+							
 						</a>
 		    {{/if}}
 			{{/each}}

@@ -18,19 +18,19 @@
                <img class="mdc-list-item__end-img" src="img/qr_code.png" width="40" height="40" alt="qr_code">
             </li>
             <li class="mdc-list-divider" role="separator"></li>
-            <a class="mdc-list-item" href="#userinfo/avatar">照片
-               <img class="mdc-list-item__end-avatar" src="{{avatar}}" width="40" height="40" alt="avatar">
+            <a class="mdc-list-item">照片
+               <img class="mdc-list-item__end-avatar" src="{{avatar}}" width="40" height="40" alt="">
             </a>
             <li class="mdc-list-divider" role="separator"></li>
             <li class="mdc-list-item">注册号
                <span class="mdc-list-item__end-detail">{{id}}</span>
             </li>
             <li class="mdc-list-divider" role="separator"></li>
-            <li class="mdc-list-item">姓名<span class="mdc-list-item__end-detail">{{nickname}}</span></li>
+            <li class="mdc-list-item">姓名<span class="mdc-list-item__end-detail">{{name}}</span></li>
          </ul>
          <ul class="mdc-list mdc-list-group list-group__subheader">
             <h5 class="mdc-list-group__subheader subheader">联系方式</h5>
-            <li class="mdc-list-item">手机号<span class="mdc-list-item__end-detail">{{ phone }}</span></li>
+            <li class="mdc-list-item">手机号<span class="mdc-list-item__end-detail">{{phone}}</span></li>
             <li class="mdc-list-divider" role="separator"></li>
             <li class="mdc-list-item">微信<span class="mdc-list-item__end-detail">暂无</span></li>
          </ul>
@@ -40,7 +40,7 @@
             <li class="mdc-list-divider" role="separator"></li>
             <li class="mdc-list-item">服务2<span class="mdc-list-item__end-detail">当前</span><span class="mdc-list-item__end-detail">CEO</span><span class="mdc-list-item__end-detail">切换</span></li>
          </ul>
-         <ul class="mdc-list mdc-list-group list-group__subheader">
+<!--          <ul class="mdc-list mdc-list-group list-group__subheader">
             <h5 class="mdc-list-group__subheader subheader">相册</h5>
             <section class="album">
                <div class="mdc-grid-list mdc-grid-list--tile-gutter-4">
@@ -52,10 +52,10 @@
                 </ul>
                </div>
             </section>
-         </ul>
+         </ul> -->
           <ul class="mdc-list mdc-list-group list-group__subheader">
             <h5 class="mdc-list-group__subheader subheader">操作</h5>
-            <div class="loginout " >
+            <div class="send_employee_massage" >
                <button class="mdc-button mdc-button--raised notice-item" data-from-user-id="{{user_id}}" data-message-type="TMSG" data-event-type=""> 给对方发消息 </button>
             </div>
           </ul>

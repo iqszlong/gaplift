@@ -5,7 +5,7 @@
             <span class="mdc-toolbar__title catalog-title">电梯信息</span>
         </section>
         <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
-			<button class="mdc-button mdc-button--primary">确定</button>
+			<button class="mdc-button mdc-button--primary save_lift">确定</button>
         </section>
     </div>
 </div>
@@ -74,8 +74,8 @@
 
 			<div class="mdc-list">
 				<a class="mdc-list-item" href="#lift/editSelect/operating_status">运维状态
-				<span class="mdc-list-item__end-detail ">{{$data.operating_status}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
-			</a>
+					<span class="mdc-list-item__end-detail ">{{if $data.operating_status=="TOK"}}正常{{else if $data.operating_status=="TMODIFY"}}维修状态{{else}}保养状态{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
 			</div>
 
 			<hr class="mdc-list-divider">

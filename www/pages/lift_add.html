@@ -1,0 +1,98 @@
+<div class="mdc-toolbar">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <a href="back" class="material-icons mdc-toolbar__icon">arrow_back</a>
+            <span class="mdc-toolbar__title catalog-title">添加电梯</span>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+			<button class="mdc-button mdc-button--primary save_add_lift">确定</button>
+        </section>
+    </div>
+</div>
+<div class="main-content">
+	<div class="mdc-list-group lift_add">
+		<script type="text/html" id="lift_add">
+			<h3 class="mdc-list-group__subheader"><i class="material-icons">sort</i>基础</h3>
+			<div class="mdc-list">
+				<a class="mdc-list-item" href="#lift/editNum/registration_code/add">注册代码
+					<span class="mdc-list-item__end-detail ">{{if $data.registration_code =='' || !$data.registration_code}}编辑{{else}}{{$data.registration_code}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+				<a class="mdc-list-item" href="#lift/editNum/serial_number/add">出厂编号
+					<span class="mdc-list-item__end-detail ">{{if $data.serial_number =='' || !$data.serial_number}}编辑{{else}}{{$data.serial_number}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+				<a class="mdc-list-item" href="#lift/editNum/internal_number/add">单位内部编号
+					<span class="mdc-list-item__end-detail ">{{if $data.internal_number =='' || !$data.internal_number}}编辑{{else}}{{$data.internal_number}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+				<a class="mdc-list-item" href="#lift/editText/code/add">编号
+					<span class="mdc-list-item__end-detail ">{{if $data.code =='' || !$data.code}}编辑{{else}}{{$data.code}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+				<a class="mdc-list-item" href="#lift/editNum/building_level/add">层数
+					<span class="mdc-list-item__end-detail">{{if $data.building_level =='' || !$data.building_level}}编辑{{else}}{{$data.building_level}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+				<a class="mdc-list-item" href="#lift/editNum/level/add">站数
+					<span class="mdc-list-item__end-detail ">{{if $data.level =='' || !$data.level}}编辑{{else}}{{$data.level}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+			</div>
+
+			<hr class="mdc-list-divider">
+			<h3 class="mdc-list-group__subheader"><i class="material-icons">sort</i>数据</h3>
+			<div class="mdc-list">
+			<a class="mdc-list-item" href="#lift/editSelect/category">类型
+				<span class="mdc-list-item__end-detail ">{{if $data.category =='' || !$data.category}}编辑{{else if $data.category=="LIFT-ELE"}}直降电梯{{else if $data.category=="LIFT-ESC"}}自动扶梯{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+			</a>
+			<a class="mdc-list-item" href="#lift/editText/brand/add">品牌
+				<span class="mdc-list-item__end-detail ">{{if $data.brand =='' || !$data.brand}}编辑{{else}}{{$data.brand}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+			</a>
+			<a class="mdc-list-item" href="#lift/editText/vendor/add">厂家
+				<span class="mdc-list-item__end-detail ">{{if $data.vendor =='' || !$data.vendor}}编辑{{else}}{{$data.vendor}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+			</a>
+			<a class="mdc-list-item" href="#lift/editNum/load/add">载重量
+				<span class="mdc-list-item__end-detail ">{{if $data.load =='' || !$data.load}}编辑{{else}}{{$data.load}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+			</a>
+			<a class="mdc-list-item" href="#lift/editNum/speed/add">出厂速度
+				<span class="mdc-list-item__end-detail ">{{if $data.speed =='' || !$data.speed}}编辑{{else}}{{$data.speed}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+			</a>
+			</div>
+
+			<hr class="mdc-list-divider">
+			<h3 class="mdc-list-group__subheader"><i class="material-icons">sort</i>运维</h3>
+			<div class="mdc-list">
+				<a class="mdc-list-item">运行状态
+				<span class="mdc-list-item__end-detail basic-switch">
+				<section class="example">
+					<div class="mdc-switch">
+						{{if $data.running_status =='TOK'}}{{set checked = 'checked'}}{{/if}}
+						<input type="checkbox" id="basic-switch" class="mdc-switch__native-control" {{checked}} />
+						<div class="mdc-switch__background">
+							<div class="mdc-switch__knob"></div>
+						</div>
+					</div>
+				</section>
+				</span>
+				</a>
+			</div>
+
+			<div class="mdc-list">
+				<a class="mdc-list-item" href="#lift/editSelect/operating_status">运维状态
+					<span class="mdc-list-item__end-detail ">{{if $data.operating_status=='' || !$data.operating_status}}编辑{{else if $data.operating_status=="TOK"}}正常{{else if $data.operating_status=="TMODIFY"}}维修状态{{else}}保养状态{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+			</div>
+
+			<hr class="mdc-list-divider">
+			<h3 class="mdc-list-group__subheader"><i class="material-icons">sort</i>关系</h3>
+			<div class="mdc-list">
+				<a class="mdc-list-item" href="#lift/editSelect/district_id">小区
+					<span class="mdc-list-item__end-detail ">{{if $data.district_name=='' || !$data.district_name}}编辑{{else}}{{$data.district_name}}{{/if}}<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+				<!-- <a class="mdc-list-item" href="#lift/editSelectMul/merchants">企业
+					
+					<span class="mdc-list-item__end-detail ">编辑<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a>
+				<a class="mdc-list-item" href="#lift/editSelectMul/employees">员工
+					
+					<span class="mdc-list-item__end-detail ">编辑<i class="material-icons next-edit">keyboard_arrow_right</i></span>
+				</a> -->
+			</div>
+		</script>
+	</div>
+</div>

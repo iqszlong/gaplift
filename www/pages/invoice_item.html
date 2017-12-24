@@ -14,10 +14,24 @@
 		<ul class="mdc-list">
 		    <div class="invoice_item"></div>
 		    <script type="text/html" id="invoice_item">
-		    	{{each $data val}}
-				<li class="mdc-list-item" href="#lift/editNum/registration_code/edit">{{val.name}}
-					<span class="mdc-list-item__end-detail ">{{$data.registration_code}}</span>
-				</li>
+		    	{{each $data val i}}
+
+				<a class="mdc-list-item" href="#invoice/editText/{{i}}/{{val.type}}{{if val.sub_type}}/{{val.sub_type}}{{/if}}">
+					<span class="invoice_name">{{val.name}}</span>
+					{{each val.values op index}}
+						<span class="invoice_item_info" value='{{index}}'>
+							{{if op.value == 'false'}}
+								否
+							{{else if op.value == 'true'}}
+								是
+							{{else}}
+							{{op.value}}
+							{{/if}}
+						</span>
+					{{/each}}
+
+					<span class="mdc-list-item__end-detail">{{set length = val.values.length}}{{length}}{{$data.registration_code}}</span>
+				</a>
 				{{/each}}
 			</script>
 		</ul>
