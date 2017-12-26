@@ -1,206 +1,9 @@
-<script type="text/html" id="gap">
-    <div class="gap"></div>
-</script>
-<script type="text/html" id="pop-form">
-    <form class="pop-form">
-        <div class="form-item">
-            <input type="text" name="name" value="{{name}}" placeholder="标题" class="form-input">
-            <label>
-                <input type="checkbox" name="is_title_hide" value="true" {{if is_title_hide}} checked {{/if}}>隐藏</label>
-            <label>
-                <input type="checkbox" name="is_multiple" value="true" {{if is_multiple}} checked {{/if}}>复用</label>
-        </div>
-        {{if sub_type || cols}}
-        <div class="form-item">
-            <div class="field-select" data-type="{{type}}" {{if cols}}data-cols="{{cols}}"{{/if}} {{if sub_type}}data-sub-type="{{sub_type}}"{{/if}} {{if classify=='features' }} multiple {{/if}}></div>
-        </div>
-        {{/if}} 
-
-        {{if format}}
-        <div class="form-item">
-            <div class="format-select" data-type="{{type}}" data-format="{{format}}" {{if sub_type}}data-sub-type="{{sub_type}}" {{/if}}></div>
-        </div>
-        {{/if}} 
-
-        {{if relations}}
-        {{each relations relate i}}
-        <div class="form-item form-relation-btn">
-            <span class="form-label-relation">关联</span> {{relate.to_field_title}} {{relate.to_field_id}}
-            <input type="hidden" name="relate" value="{{relate.to_field_id}}">
-            <button type="button" class="end action btn-remove" data-action="remove_relate" data-id="{{relate.to_field_id}}"><i class="fa fa-unlink"></i></button>
-        </div>
-        {{/each}} 
-        {{/if}}
-
-        <div class="form-bottom">
-            <button type="button" class="btn btn-default form-btn">确定</button>
-        </div>
-    </form>
-</script>
-<script type="text/html" id="component-btn">
-    {{each $data item i}}
-    <div  class="drag-container component-btn" data-index="{{i}}" data-item="{{item}}" >
-        {{item.name}} {{if item.id}}<span class="btn-id">ID: {{item.id}}</span>{{/if}} {{if item.parent == 'side'}} {{include 'pop-form' , item}} {{/if}}
-    </div>
-    {{/each}}
-</script>
-<script type="text/html" id="cols">
-    {{each $data item i}}
-    <div class="col">&nbsp;</div>
-    {{/each}}
-</script>
-<script type="text/html" id="ctrl-item">
-    <div class="ctrl">
-        <div class="ctrl-item">
-            <label>列:</label>
-            <button type="button" data-col="1" class="btn-col {{if length == 1 || !length}}active{{/if}}">1</button>
-            <button type="button" data-col="2" class="btn-col {{if length == 2}}active{{/if}}">2</button>
-            <button type="button" data-col="3" class="btn-col {{if length == 3}}active{{/if}}">3</button>
-            <button type="button" data-col="4" class="btn-col {{if length == 4}}active{{/if}}">4</button>
-        </div>
-        <div class="ctrl-item">
-            <button type="button" data-action="hide" class="action">隐</button>
-            {{if !nodel}}
-            <button type="button" data-action="del" class="action">删</button>
-            {{/if}}
-        </div>
-    </div>
-</script>
-<script type="text/html" id="col-ctrl">
-    <form class="col-ctrl">
-        {{each $data.opts optval i}}
-        <label data-action="{{if optval == 1}}see{{else if optval == 2}}modify{{/if}}" class="action {{if opt == optval}}active{{/if}}">
-            <input type="radio" name="opt" autocomplete="off" value="{{optval}}" {{if opt== optval}}checked{{/if}}> {{if optval == 1}}查{{else if optval == 2}}编{{/if}}
-        </label>
-        {{/each}}
-    </form>
-</script>
-<script type="text/html" id="row">
-    <div class="page-row">
-        
-        {{if $data.length}}
-            {{include 'ctrl-item',{length:$data.length} }}
-            {{each $data col}}
-            <div class="col">
-                {{include 'component-tpl',col}}
-            </div>
-            {{/each}}
-        {{else}}
-        {{include 'ctrl-item',{length:0} }}
-        <div class="col"></div>
-        {{/if}}
-    </div>
-</script>
-<script type="text/html" id="a4">
-    <div class="a4">
-        <div class="inner">
-            <div class="page-top page-row">
-            {{if header}}
-                {{include 'ctrl-item',{length:header.length,nodel:true} }}
-                {{each header item}}
-                <div class="col">{{include 'component-tpl',item}}</div>
-                {{/each}}
-            {{else}}
-                {{include 'ctrl-item',{length:0,nodel:true} }}
-                <div class="col"></div>
-            {{/if}}
-            </div>
-
-  
-            {{include 'field-row' , $data}}
-          
-
-            <button type="button" class="add-row btn btn-default"><i class="fa fa-plus"></i> 添加一个内容行</button>
-            <div class="page-bottom page-row">
-            {{if footer}}
-                {{include 'ctrl-item',{length:footer.length,nodel:true} }}
-                {{each footer item}}
-                <div class="col">{{include 'component-tpl',item}}</div>
-                {{/each}}
-            {{else}}
-                {{include 'ctrl-item',{length:0,nodel:true} }}
-                <div class="col"></div>
-            {{/if}}
-            </div>
-        </div>
-    </div>
-</script>
-
-<script type="text/html" id="field-row">
-    {{each field item}}
-        {{include 'row' , item}}
-    {{/each}}
-</script>
-
-
-<script type="text/html" id="group">
-    <div class="group {{job_status}} {{if job_status != 'ING'}}disabled{{else if job_status == 'ING'}}silde{{/if}}" data-id="{{id}}" data-opt="{{opt}}">
-        <form class="group-header">
-            第{{index}}步 {{form_name}}{{if opt == 'AUDIT'}} {{opt_name}} {{/if}}
-            
-            {{if is_public}}
-            <div class="item">
-                <select name="merchant_id" class="form-control">
-                    <option value="">请选择关联企业</option>
-                    {{each merchant_list mc}}
-                    <option value="{{mc.refer_merchant_id}}">{{mc.name}}</option>
-                    {{/each}}
-                </select>
-                <select name="whos_id" class="form-control" data-placeholder="请选择角色" multiple disabled>
-                    <option value=""></option>
-                    <optgroup label="角色" data-type="ROLE">
-                    </optgroup>
-                </select>
-            </div>
-            {{/if}}
-
-            <span class="end">
-                
-            <span class="job_status {{job_status}}">{{if !job_status}}未开始{{else if job_status == 'ING'}}进行中{{else if job_status == 'WAIT'}}等待中{{else}}已完成{{/if}}</span>
-            <label class="is_notification"><input type="checkbox" name="is_notification" value="true" {{if is_notification}}checked{{/if}} {{disabled}}>提醒</label>
-            </span>
-        </form>
-        <div class="group-body">
-        {{include 'field-row' , $data}}
-        
-        {{if opt == 'AUDIT'}}
-        <form class="group-form">
-            <textarea name="" class="form-input" cols="30" rows="3" placeholder="审批意见"></textarea>
-        </form>
-        <div class="group-footer">
-            <button type="button" class="btn btn-danger stop" data-opt="AUDIT-FAIL">驳回</button>
-            <button type="button" class="btn btn-success pass" data-opt="AUDIT-PASS">通过</button>
-        </div>
-        {{else}}
-        <div class="group-footer">
-            <button type="button" class="btn btn-default commit" data-opt="COMMIT">提交</button>
-        </div>
-        {{/if}}
-        </div>
-    </div>
-</script>
-
-<script type="text/html" id="select-tpl">
-    <select data-placeholder="{{title}}" name="{{name}}" class="chosen-select" {{if multiple}}multiple{{/if}} tabindex="{{index}}"  >
-        <option value=""></option>
-        {{each $data.options val}} {{if val.group}}
-        <optgroup label="{{val.group.label}}">
-            {{each val.group.options item}}
-            <option {{if item.val}}value="{{item.val}}" {{/if}} {{if item.selected}} selected {{/if}}>{{item.label}}</option>
-            {{/each}}
-        </optgroup>
-        {{/if}}
-        <option {{if val.val}}value="{{val.val}}" {{/if}} {{if val.selected}} selected {{/if}}>{{val.label}}</option>
-        {{/each}}
-    </select>
-</script>
 <script type="text/html" id="component-tpl">
     <div  class="component-html drag-container {{type}}" {{if index}}data-index="{{index}}"{{/if}} data-item="{{$data}}">
- 
+        <li role="separator" class="mdc-list-divider mdc-list-divider"></li>
         {{if classify == 'features'}}{{include 'col-ctrl' , $data}}{{/if}}
         {{if !is_title_hide}}<span class="form-label">{{name}}</span>{{/if}}
         <div class="form-body">
-            
             {{if classify == 'static'}}
                 {{include 'class_static',$data}}
             {{/if}}
@@ -216,117 +19,30 @@
             {{if classify == 'type'}}
                 {{include 'class_type', $data}}
             {{/if}}
-
         </div>
-     
-
     </div>
 </script>
-<script type="text/html" id="field">
-    <select name="search-field" class="form-input form-area"  placeholder="搜索" {{disabled}} ></select>
- 
-    {{each $data item i}}
-    {{if item.input_type == 'text'}}
-    <div class="item-{{item.col}} form-item">
-        <input type="text" name="{{item.col}}" class="form-input {{item.col}}" {{disabled}}  value="{{item.value}}" placeholder="{{item.name}}" {{if item.required}}required{{/if}} {{if item.readonly}}readonly{{/if}} {{if item.opt==1 }}disabled{{/if}} >
-    </div>
-    {{/if}}
 
-    {{if item.input_type == 'select'}}
-    <div class="item-{{item.col}} form-item">
-        <select name="{{item.col}}" class="form-input {{item.col}}" {{if item.required}}required{{/if}} {{if item.readonly}}readonly{{/if}} {{if item.opt==1 }}disabled{{/if}} {{disabled}}  >
-            {{each item.datalist list}}
-            {{if list.id == item.value}}{{set sd = 'selected'}}{{/if}}
-            <option value="{{list.id}}" {{sd}}>{{list.name}}</option>
-            {{/each}}
-        </select>
-    </div>
-    {{/if}}
 
-    {{if item.input_type == 'droptext'}}
-    <div class="item-{{item.col}} form-item">
-        <input type="text" name="{{item.col}}" list="list-{{item.col}}-{{i}}" class="form-input {{item.col}}" value="{{item.value}}" placeholder="{{item.name}}" {{if item.required}}required{{/if}} {{if item.readonly}}readonly{{/if}} {{if item.opt==1 }}disabled{{/if}} {{disabled}} >
-        <datalist id="list-{{item.col}}-{{i}}" {{disabled}} >
-            {{each item.datalist list}}
-            <option>list</option>
-            {{/each}}
-        </datalist>
-    </div>
-    {{/if}}
+<!--"静态组件"-->
+<script type="text/html" id="class_static">
+    {{each feilds fitem i}}
+        <form class="form-inner">
+        
+        {{include 'static_field',fitem}}
 
-    {{if item.input_type == 'numeric'}}
-    <div class="item-{{item.col}} form-item">
-        <input type="text" name="{{item.col}}" class="form-input {{item.col}}" value="{{item.value}}" placeholder="{{item.name}}" {{disabled}}  {{if item.required}}required{{/if}} {{if item.readonly}}readonly{{/if}} {{if item.opt==1 }}disabled{{/if}} > {{if item.unit}}{{item.unit}}{{/if}}
-    </div>
-    {{/if}}
+        {{if is_multiple}}
 
+            {{if i}}
+            <button type="button" class="btn-del-group"><i class="fa fa-minus"></i></button>
+            {{else}}
+            <button type="button" class="btn-copy-group"><i class="fa fa-plus"></i></button>
+            {{/if}}
+        {{/if}}
+        </form>
     {{/each}}
- 
- 
 </script>
-
-<script type="text/html" id="ele_text">
-    {{if sub_type == 'TEXT-TITLE'}} 
-    <input type="text" value="{{value}}" name="value" class="form-input {{sub_type}}" {{disabled}}  {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}}> {{else}}
-    <textarea name="value" class="form-input {{sub_type}}" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}} >{{value}}</textarea>
-    {{/if}}
-</script>
-
-<script type="text/html" id="ele_num">
-    <input type="number" name="value" value="{{value}}" class="form-input {{sub_type}} form-area" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}} >
-    {{if unit}} 
-    <input type="text" name="unit" value="{{unit}}" class="form-input form-area" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}} > 
-    {{/if}}
-</script>
-
-<script type="text/html" id="ele_time">
-    <i class="fa {{if format == 'DATE' || format == 'DATE-TIME'}}fa-calendar{{else}}fa-clock-o{{/if}} form-inner-icon"></i>
-    <input type="text" name="value" value="{{value}}" class="form-input {{sub_type}} form-date" {{if format}} data-format="{{format}}" {{/if}} {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}}  > 
-    {{if format == 'INTERVAL'}}
-    <select name="unit" class="form-input unit" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}}  >
-        {{each units un i}}
-        <option value="{{un.val}}" {{if un.val== unit}}selected{{/if}}>{{un.label}}</option>
-        {{/each}}
-    </select>
-    {{/if}}
-</script>
-
-
-<script type="text/html" id="ele_bool">
-    <label>是
-        <input type="radio" name="value" value="true" {{if value=='true'}} checked{{/if}} {{disabled}} >
-    </label>
-    <label>否
-        <input type="radio" name="value" value="false" {{if value=='false'}} checked{{/if}} {{disabled}} >
-    </label>
-</script>
-
-
-<script type="text/html" id="ele_file">
-    <input type="file" value="{{value}}" name="value" class="form-input {{sub_type}}" {{if is_required}} required {{/if}} {{disabled}} >
-</script>
-
-<script type="text/html" id="ele_position">
-    <div class="area-place" data-value="{{value}}" >
-        <select class="form-input form-area" rel="province" data-link="city" {{if is_readonly}} readonly {{/if}}  {{disabled}} >
-            <option>省份</option>
-        </select>
-        <select class="form-input form-area" rel="city" data-link="area" {{if is_readonly}} readonly {{/if}}  {{disabled}} >
-            <option>城市</option>
-        </select>
-        <select class="form-input form-area" rel="area" name="value" {{if is_readonly}} readonly {{/if}}  {{disabled}} >
-            <option>地区</option>
-        </select>
-    </div>
-    <input type="text" name="sub_value" class="form-input {{sub_type}}" value="{{sub_value}}" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}}   />
-</script>
-
-
-<script type="text/html" id="ele_gps">
-    <span class="end">GPS定位中……</span>
-</script>
-
-
+<!--"静态组件单模块显示总控制"-->
 <script type="text/html" id="static_field">
     {{if type == 'TEXT'}}
         {{include 'ele_text',$data}}
@@ -353,50 +69,88 @@
     {{/if}}
 
 </script>
+<!--"静态组件-文字"-->
+<script type="text/html" id="ele_text">
+    {{if sub_type == 'TEXT-TITLE'}}
+   <!--  <input type="text" value="{{value}}" name="value" class="form-input {{sub_type}}" {{disabled}}  {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}}> {{else}}
+    <textarea name="value" class="form-input {{sub_type}}" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}} >{{value}}</textarea> -->
+    <a class="mdc-list-item" href="#lift/editNum/registration_code/edit">{{$data.value}}
+        <span class="mdc-list-item__end-detail "><i class="material-icons next-edit">keyboard_arrow_right</i></span>
+    </a>
 
-<script type="text/html" id="hardware_field">
-    {{if type == 'GPS'}}
-        {{include 'ele_gps',$data}}
     {{/if}}
 </script>
-
-<script type="text/html" id="type_field">
-    {{if type == 'REFER-FORM-ID'}}
-        <span class="end">{{value}}</span>
-    {{/if}}
-    {{if type == 'REFER-TABLE-ID'}}
-        <span class="end">{{value}}</span>
-    {{/if}}
-    {{if type == 'REFER-JOB-ID'}}
-        <span class="end">{{value}}</span>
-    {{/if}}
-    {{if type == 'REFER-MERCHANT'}}
-        <span class="end">{{value}}</span>
-    {{/if}}
-    {{if type == 'REFER-EMPLOYEE'}}
-        <span class="end">{{value}}</span>
+<!--"静态组件-数值"-->
+<script type="text/html" id="ele_num">
+    <input type="number" name="value" value="{{value}}" class="form-input {{sub_type}} form-area" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}} >
+    {{if unit}} 
+    <input type="text" name="unit" value="{{unit}}" class="form-input form-area" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}} > 
     {{/if}}
 </script>
-
-<script type="text/html" id="class_static">
-
-{{each feilds fitem i}}
-    <form class="form-inner">
-    
-    {{include 'static_field',fitem}}
-
-    {{if is_multiple}}
-
-        {{if i}}
-        <button type="button" class="btn-del-group"><i class="fa fa-minus"></i></button>
-        {{else}}
-        <button type="button" class="btn-copy-group"><i class="fa fa-plus"></i></button>
-        {{/if}}
+<!--"静态组件-时间"-->
+<script type="text/html" id="ele_time">
+    <i class="fa {{if format == 'DATE' || format == 'DATE-TIME'}}fa-calendar{{else}}fa-clock-o{{/if}} form-inner-icon"></i>
+    <input type="text" name="value" value="{{value}}" class="form-input {{sub_type}} form-date" {{if format}} data-format="{{format}}" {{/if}} {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}}  > 
+    {{if format == 'INTERVAL'}}
+    <select name="unit" class="form-input unit" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}}  >
+        {{each units un i}}
+        <option value="{{un.val}}" {{if un.val== unit}}selected{{/if}}>{{un.label}}</option>
+        {{/each}}
+    </select>
     {{/if}}
-    </form>
-{{/each}}
+</script>
+<!--"静态组件-是否"-->
+<script type="text/html" id="ele_bool">
+<!--     <label>是
+        <input type="radio" name="value" value="true" {{if value=='true'}} checked{{/if}} {{disabled}} >
+    </label>
+    <label>否
+        <input type="radio" name="value" value="false" {{if value=='false'}} checked{{/if}} {{disabled}} >
+    </label> -->
+    <a class="mdc-list-item">关/开
+                <span class="mdc-list-item__end-detail basic-switch">
+                <section class="example">
+                    <div class="mdc-switch">
+                        {{if $data.running_status =='TOK'}}{{set checked = 'checked'}}{{/if}}
+                        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" {{checked}} />
+                        <div class="mdc-switch__background">
+                            <div class="mdc-switch__knob"></div>
+                        </div>
+                    </div>
+                </section>
+                </span>
+    </a>
+</script>
+<!--"静态组件-文件"-->
+<script type="text/html" id="ele_file">
+    <input type="file" value="{{value}}" name="value" class="form-input {{sub_type}}" {{if is_required}} required {{/if}} {{disabled}} >
+</script>
+<!--"静态组件-位置"-->
+<script type="text/html" id="ele_position">
+    <!-- <div class="area-place" data-value="{{value}}" >
+        <select class="form-input form-area" rel="province" data-link="city" {{if is_readonly}} readonly {{/if}}  {{disabled}} >
+            <option>省份</option>
+        </select>
+        <select class="form-input form-area" rel="city" data-link="area" {{if is_readonly}} readonly {{/if}}  {{disabled}} >
+            <option>城市</option>
+        </select>
+        <select class="form-input form-area" rel="area" name="value" {{if is_readonly}} readonly {{/if}}  {{disabled}} >
+            <option>地区</option>
+        </select>
+    </div>
+    <input type="text" name="sub_value" class="form-input {{sub_type}}" value="{{sub_value}}" {{if is_required}} required {{/if}}{{if is_readonly}} readonly {{/if}} {{disabled}}   /> -->
+    <a class="mdc-list-item" href="#lift/editNum/registration_code/edit">{{$data.value}} {{$data.sub_value}}
+        <span class="mdc-list-item__end-detail "><i class="material-icons next-edit">keyboard_arrow_right</i></span>
+    </a>
 </script>
 
+
+
+
+
+
+
+<!--功能组件-->
 <script type="text/html" id="class_features">
 {{each feilds fitem i}}
     <form class="form-inner">
@@ -416,21 +170,7 @@
     </form>
 {{/each}}
 </script>
-
-
-<script type="text/html" id="class_type">
-    {{each feilds fitem i}}
-    {{include 'type_field',fitem}}
-    {{if is_multiple}}
-            {{if i}}
-            <button type="button" class="btn-del-group"><i class="fa fa-minus"></i></button>
-            {{else}}
-            <button type="button" class="btn-copy-group"><i class="fa fa-plus"></i></button>
-            {{/if}}
-        {{/if}}
-    {{/each}}
-</script>
-
+<!--硬件组件-->
 <script type="text/html" id="class_hardware">
 {{each feilds fitem i}}
     
@@ -444,4 +184,17 @@
             {{/if}}
         {{/if}}
 {{/each}}
+</script>
+<!--特型组件-->
+<script type="text/html" id="class_type">
+    {{each feilds fitem i}}
+    {{include 'type_field',fitem}}
+    {{if is_multiple}}
+            {{if i}}
+            <button type="button" class="btn-del-group"><i class="fa fa-minus"></i></button>
+            {{else}}
+            <button type="button" class="btn-copy-group"><i class="fa fa-plus"></i></button>
+            {{/if}}
+        {{/if}}
+    {{/each}}
 </script>

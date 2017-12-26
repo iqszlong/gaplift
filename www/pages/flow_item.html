@@ -2,7 +2,7 @@
     <div class="mdc-toolbar__row">
         <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
             <a href="back" class="material-icons mdc-toolbar__icon">arrow_back</a>
-            <span class="mdc-toolbar__title catalog-title">工单详情</span>
+            <span class="mdc-toolbar__title catalog-title">工单流程</span>
         </section>
     </div>
 </div>
@@ -29,7 +29,8 @@
 			{{each $data.steps step i}}
 			{{if i}}
 			{{if !step.can_edit}}{{set disable = 'flow_step_disable'}}{{/if}}
-			<a class="mdc-list-item  customer {{disable}}" {{if step.can_edit}}href="#flow/stepdetail/{{$data.id}}/step{{i}}"{{/if}}>
+			<!-- <a class="mdc-list-item  customer {{disable}}" {{if step.can_edit}}href="#flow/stepdetail/{{$data.id}}/step{{i}}"{{/if}}> -->
+			<a class="mdc-list-item  customer {{disable}}" href="#flow/stepdetail/{{$data.id}}/step{{i}}">
 				<span class="img-box mdc-list-item__start-detail" data-word="{{step.index}}"></span>{{step.form_name}}
 				{{if step.job_status=="COMPLETE"}}
 				<span class="mdc-list-item__end-detail">已完成<i class="material-icons" aria-label="choosemaster">done</i></span>

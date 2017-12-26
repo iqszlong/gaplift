@@ -7,8 +7,9 @@
     </div>
 </div>
 <main class="main-content comment-list">
+    <ul class="mdc-list mdc-list--avatar-list mdc-list--dense {{if hidename}}hide-name{{/if}} app_notice_list">
 	<script id="notice_comment_item" type="text/html"> 
-    <ul class="mdc-list mdc-list--avatar-list mdc-list--dense {{if hidename}}hide-name{{/if}} ">
+    
 		{{each $data.messages val}}
         {{if $data.from_user_id != val.from_user_id}}{{set my = 'my'}}{{/if}}
 
@@ -25,8 +26,9 @@
 	            </div>
 	        </li>
 		{{/each}}
-    </ul>
+
 	</script>
+    </ul>
 </main>
 <section class="post-notice">
 
