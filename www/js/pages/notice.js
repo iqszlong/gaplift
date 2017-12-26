@@ -43,7 +43,7 @@ var notice = {
 	//获取对话双方消息列表
 	getDetail:function(data){
 		var _self = this;
-		var msg_item = $(document).find('.comment-list');
+		var msg_item = $(document).find('.app_notice_list');
 		console.log('getnoticeDetail',data);
 
 		if(data != undefined){
@@ -162,19 +162,21 @@ var notice = {
 	        str += '<div class="notice-comment">'+text+'</div>'
 	        str += '</div></li>';
 
-	        $('.mdc-list').append(str);
+	        console.log($('.app_notice_list').html());
+
+	        $('.app_notice_list').append(str);
 	        $('.mdc-textfield input').val('');
 	        //$('.write_box input').focus();
 	        //autoWidth();
 	        _self.for_bottom();
 
-	    var msg_data = {}
+		    var msg_data = {}
 
-	    msg_data.user_id = _self.data.response_uid;
-	    msg_data.message_content = text;
-	    msg_data.message_type = 'TMSG';
+		    msg_data.user_id = _self.data.response_uid;
+		    msg_data.message_content = text;
+		    msg_data.message_type = 'TMSG';
 
-	    socket.sendMsg(msg_data);
+		    socket.sendMsg(msg_data);
 
 	},
 	for_bottom:function(){

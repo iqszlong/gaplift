@@ -15,9 +15,7 @@
 			<script type="text/html" id="flow_items">
 				{{each $data val}}
 				<a class="mdc-list-item repair work-item" data-mdc-auto-init="MDCRipple" href="#flow/detail/{{val.id}}">
-					<span class="mdc-list-item__text">{{val.name}}
-					    
-					</span>
+					<span class="mdc-list-item__text">{{val.name}}</span>
 					<span class="mdc-list-item__end-detail">
 			            <time datetime="" class="date">{{val.create_time}}</time>
 			            <span class="clock">{{if val.ing_index}}正在进行第{{val.ing_index}}步{{else}}已完成{{/if}}</span>

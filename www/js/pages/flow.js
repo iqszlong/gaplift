@@ -41,10 +41,9 @@ var flow = {
 
 		var request = api.getPost('/workflow/job/get',flow_id);
 		request.then(function(res){
-			console.log('getFlowinfo',res.data);
+			console.log('原Flowinfo',res.data);
 			switch(res.code){
 				case 0:
-					console.log('length',res.data.steps.length);
 					//处理每个单步的数据
 					for(var i=0;i<res.data.steps.length;i++){
 							var step = res.data.steps[i];
@@ -57,7 +56,6 @@ var flow = {
 				            //steps[i]
 				            var obj = {};
 				            	obj.fields = step.fields;
-				                // editForm.redata(obj.side);//console.log(obj);
 				                obj.id = step.id;
 				                obj.index = step.index;
 				                obj.form_name = step.form_name;
@@ -69,8 +67,6 @@ var flow = {
 				            }else{
 				                obj.opt_name = "审核";
 				            }
-
-
 				            
 				            obj.fields = editForm.redata(obj.fields);
 				            
@@ -78,20 +74,14 @@ var flow = {
 				            	editForm.chosenClassfiy(obj.fields[k]);
 				            }
 
-
-				            console.log('obj',obj);
+				            //console.log('obj',obj);
 				            _self.flow_step_list['step'+i]=obj;
-
-				            // editForm.data.side = flow.data.sideGroup[ing_index];
-				            // editForm.sideComponent(obj.side);
-				            
 
 					}
 
-					console.log('flow_step_list',_self.flow_step_list);
+					console.log('处理Flowinfo',_self.flow_step_list);
 					//渲染
 			        var html = template('flow_item',res.data);
-			        //console.log(html);
 			        $('.flow_item').empty().append(html);
 					break;
 				default:
@@ -100,13 +90,13 @@ var flow = {
 		});
 
         //查看权限控制
-         $('body').on('click','.flow_step_disable',function(e){
-             e.preventDefault();
-             //弹窗
-            var dialog = new mdc.dialog.MDCDialog(document.querySelector('#my-mdc-dialog'));
-            dialog.show();
+        // $('body').on('click','.flow_step_disable',function(e){
+        //      e.preventDefault();
+        //      //弹窗
+        //     var dialog = new mdc.dialog.MDCDialog(document.querySelector('#my-mdc-dialog'));
+        //     dialog.show();
 
-        });
+        // });
 	},
 	//工单步骤详情
 	stepdetail:function(){
@@ -117,21 +107,25 @@ var flow = {
 		app.navTo('flow_item_edit');
 		console.log('now_step_data',_self.flow_step_list[now_step]);
 
-        //渲染功能
+        //渲染功能按钮+当前步骤标题页面提示
         var opt = _self.flow_step_list[now_step];
         if(now_step=="step0"){
             opt.opt = '';//stop0 操作属性去掉
         }
         var opt_html = template('flow_item_toolbar',opt);
-        //console.log(html);
         $('.flow_item_toolbar').empty().append(opt_html);
+        var opt_title = template('flow_item_title',opt);
+        $('.flow_item_title').empty().append(opt_title);
+
 
 		//渲染数据
         var item_edit_html = htmlImport.tpl.flow_art_tpl;
-        //console.log(html);
+        //console.log('item_edit_html',item_edit_html);
         $('.flow_item_edit').empty().append(item_edit_html);
+
         var fields = _self.flow_step_list[now_step].fields;
         for (var i = 0; i < fields.length; i++) {
+            console.log('每步中的元素项',fields[i]);
            	var html = template('component-tpl',fields[i]);
            	$('.flow_item_edit').append(html);
 
