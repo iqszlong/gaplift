@@ -7,5 +7,10 @@
   "displayName": "elift",
   "dependencies": {
     "phonegap-plugin-barcodescanner": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git"
+  },
+  "cordova": {
+    "plugins": {
+      "phonegap-plugin-barcodescanner": {}
+    }
   }
 }
