@@ -164,7 +164,7 @@ var app = {
 
     },
     scan: function () {
-
+        alert(JSON.stringify(cordova));
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 alert("We got a barcode\n" +
@@ -191,17 +191,22 @@ var app = {
         );
     },
     genQrCode: function (text, fn) {
-        alert(device.platform);
         cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, text, function (success) {
-                alert(111);
                 alert(JSON.stringify(success));
-                var strs = success.file.split('/');
-                var filename = strs[strs.length - 1];
-                var filePath = cordova.file.applicationStorageDirectory + 'tmp/' + filename;
+                var filePath = "";
+                if (device.platform.toUpperCase() == 'IOS') {
+                    var strs = success.file.split('/');
+                    var filename = strs[strs.length - 1];
+                    filePath = cordova.file.applicationStorageDirectory + 'tmp/' + filename;
+                } else if (device.platform.toUpperCase() == 'ANDROID') {
+                    var strs = success.file.split('/');
+                    var filename = strs[strs.length - 1];
+                    filePath = cordova.file.applicationStorageDirectory + 'cache/' + strs[strs.length - 2] + '/' + filename;
+                }
                 console.log(filePath);
                 app.getFileContentAsBase64(filePath, function (base64Image) {
                     // window.open(base64Image);
-                    // console.log(base64Image);
+                    console.log(base64Image);
                     // Then you'll be able to handle the myimage.png file as base64
                     fn && fn(base64Image);
                 });
@@ -227,6 +232,23 @@ var app = {
             // The most important point, use the readAsDatURL Method from the file plugin
             reader.readAsDataURL(file);
         });
+    },
+    listDir: function (path) {
+        window.resolveLocalFileSystemURL(path,
+            function (fileSystem) {
+                var reader = fileSystem.createReader();
+                reader.readEntries(
+                    function (entries) {
+                        console.log(entries);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                );
+            }, function (err) {
+                alert(err);
+            }
+        );
     },
     init: function () {
         this.checkLogin();

@@ -11,10 +11,10 @@
     "cordova-plugin-console": "~1.0.3",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-dialogs": "~1.2.1",
-    "cordova-plugin-file": "^5.0.0",
+    "cordova-plugin-file": "3.0.0",
     "cordova-plugin-statusbar": "~2.1.3",
     "cordova-plugin-whitelist": "~1.2.1",
-    "phonegap-plugin-barcodescanner": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
+    "phonegap-plugin-barcodescanner": "git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
     "phonegap-plugin-push": "~1.8.0"
   },
   "cordova": {
@@ -27,7 +27,8 @@
       "cordova-plugin-console": {},
       "cordova-plugin-dialogs": {},
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-device": {}
+      "cordova-plugin-device": {},
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "browser",

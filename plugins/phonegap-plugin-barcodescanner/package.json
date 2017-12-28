@@ -1,24 +1,24 @@
 {
-  "_from": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
+  "_from": "git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
   "_id": "phonegap-plugin-barcodescanner@7.0.0",
   "_inBundle": false,
-  "_integrity": "sha1-/Qmcdc96cCiIirT5RN533wqD2bk=",
+  "_integrity": "sha1-IgDsjOd1L9N52TyekUAfsC5u96Y=",
   "_location": "/phonegap-plugin-barcodescanner",
   "_phantomChildren": {},
   "_requested": {
     "type": "git",
-    "raw": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
-    "rawSpec": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
-    "saveSpec": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
-    "fetchSpec": "https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
+    "raw": "https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
+    "rawSpec": "https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
+    "saveSpec": "git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
+    "fetchSpec": "https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
     "gitCommittish": "master"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git#36284b161eb721fead059de7760adc022c3e5d9d",
-  "_spec": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
+  "_resolved": "git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git#67a2e44bfe470e9e2e8035a1a15182d7d7c58ed5",
+  "_spec": "https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
   "_where": "C:\\Users\\dream\\Desktop\\projects\\new\\gaplift",
   "author": {
     "name": "Adobe PhoneGap Team"

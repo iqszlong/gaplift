@@ -132,3 +132,5 @@ Desktop.ini
 *.class
 
 /platforms/**
+/plugins/**
+/projectFilesBackup/**
