@@ -8,6 +8,7 @@ var userinfo = {
         //渲染
         var html = template('user', newUser);
         document.getElementById('content1').innerHTML = html;
+
         // request.then(function (res) {
         //     switch (res.code) {
         //         case 0:

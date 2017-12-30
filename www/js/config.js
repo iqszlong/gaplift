@@ -6,8 +6,8 @@ var config = {
     
     // apiip:'https://fservice.1lift.cn',
     // wshost:'wss://fservice.1lift.cn',
-    apiip:'http://192.168.8.15:8000/',
-    wshost:'ws://192.168.8.15:8090',
+    apiip:'http://192.168.191.1:8000/',
+    wshost:'ws://192.168.191.1:8090',
     //pagesRoot: '../pages/',
     importJs: [
         // 'libs/webcomponentsjs/webcomponents-lite.js',

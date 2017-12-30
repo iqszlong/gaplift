@@ -12,23 +12,27 @@
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-dialogs": "~1.2.1",
     "cordova-plugin-file": "3.0.0",
+    "cordova-plugin-geolocation": "^3.0.0",
+    "cordova-plugin-local-notification": "^0.9.0-beta.1",
     "cordova-plugin-statusbar": "~2.1.3",
     "cordova-plugin-whitelist": "~1.2.1",
+    "phonegap-plugin-baidulocation": "git+https://github.com/CicadaBear/baidulocation-phonegap-plugin.git",
     "phonegap-plugin-barcodescanner": "git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
-    "phonegap-plugin-push": "~1.8.0"
+    "cordova.plugins.diagnostic": "^3.8.1"
   },
   "cordova": {
     "plugins": {
       "phonegap-plugin-barcodescanner": {},
       "cordova-plugin-statusbar": {},
-      "phonegap-plugin-push": {
-        "SENDER_ID": "XXXXXXX"
-      },
       "cordova-plugin-console": {},
       "cordova-plugin-dialogs": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-geolocation": {},
+      "phonegap-plugin-baidulocation": {},
+      "cordova.plugins.diagnostic": {}
     },
     "platforms": [
       "browser",

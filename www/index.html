@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>APP</title>
-    <script src="http://192.168.8.15:8081/target/target-script-min.js#anonymous"></script>
+    <!--<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=2rdlw1uifgr5nncsPspZRz3k"></script>-->
+    <!--<script src="http://192.168.8.15:8081/target/target-script-min.js#anonymous"></script>-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--<script type="text/javascript" src="/cordova.js"></script>-->
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="barcodescanner.js"></script>
+    <!--<script type="text/javascript" src="barcodescanner.js"></script>-->
     <script type="text/javascript" src="libs/webcomponentsjs/webcomponents-lite.js"></script>
     <script type="text/javascript" src="js/core.js"></script>
     <script type="text/javascript" src="js/config.js"></script>
@@ -17,6 +18,33 @@
     <script type="text/javascript" src="js/loader.js"></script>
     <link rel="import" href="public/libs.html">
     <link rel="import" href="public/app.html">
+    <script>
+        function setLocationByBaidu(latId, lngId, distanceCallback) {
+            var latitude = '-1';
+            var longitude = '-1';
+            // 百度地图API功能
+            var map = new BMap.Map("allmap");
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(function (r) {
+                if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                    console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
+                    latitude = r.point.lat;
+                    longitude = r.point.lng;
+                    console.log("baidu-bd09--lon--lat--" + longitude + "--" + latitude);
+                    $("#setLocation1").html("位置获取成功");
+                    $("#setLocation2").html("位置获取成功");
+                    if (distanceCallback != null && typeof(distanceCallback) == 'function') {
+                        distanceCallback(r.point);
+                    }
+                } else {
+                    $.toast('failed' + this.getStatus());
+                }
+                $("#" + latId).val(latitude);
+                $("#" + lngId).val(longitude);
+            }, {enableHighAccuracy: true});
+        }
+//        <!--setLocationByBaidu("lat", "lng");-->
+    </script>
 </head>
 
 <body>

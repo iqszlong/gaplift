@@ -25,13 +25,25 @@
     "phonegap-plugin-barcodescanner": {
       "PACKAGE_NAME": "com.elift.app"
     },
-    "phonegap-plugin-push": {
-      "SENDER_ID": "XXXXXXX",
+    "cordova-plugin-device": {
       "PACKAGE_NAME": "com.elift.app"
     },
-    "cordova-plugin-device": {
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.elift.app"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.elift.app"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.elift.app"
+    },
+    "phonegap-plugin-baidulocation": {
       "PACKAGE_NAME": "com.elift.app"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.elift.app"
+    }
+  }
 }

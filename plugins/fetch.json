@@ -7,16 +7,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "phonegap-plugin-push": {
-    "source": {
-      "type": "registry",
-      "id": "phonegap-plugin-push@~1.8.0"
-    },
-    "is_top_level": true,
-    "variables": {
-      "SENDER_ID": "XXXXXXX"
-    }
-  },
   "cordova-plugin-console": {
     "source": {
       "type": "registry",
@@ -61,6 +51,46 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-file@^5.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-local-notification": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-local-notification"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-badge": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-badge@>=0.8.5"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-geolocation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-geolocation@3.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova.plugins.diagnostic": {
+    "source": {
+      "type": "registry",
+      "id": "cordova.plugins.diagnostic"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "phonegap-plugin-baidulocation": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/CicadaBear/baidulocation-phonegap-plugin.git"
     },
     "is_top_level": true,
     "variables": {}

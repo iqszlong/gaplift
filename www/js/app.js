@@ -164,7 +164,6 @@ var app = {
 
     },
     scan: function () {
-        alert(JSON.stringify(cordova));
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 alert("We got a barcode\n" +
@@ -179,7 +178,7 @@ var app = {
                 preferFrontCamera: false, // iOS and Android
                 showFlipCameraButton: true, // iOS and Android
                 showTorchButton: true, // iOS and Android
-                torchOn: true, // Android, launch with the torch switched on (if available)
+                torchOn: false, // Android, launch with the torch switched on (if available)
                 saveHistory: true, // Android, save scan history (default false)
                 prompt: "Place a barcode inside the scan area", // Android
                 resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
@@ -250,6 +249,23 @@ var app = {
             }
         );
     },
+    notify: function (msgId, title, text) {
+        //获取当前的页面，如果不是（在前台且打开的页面是通讯录页面），就发送通知
+        if (app.inForeground) {
+            return;
+        }
+        cordova.plugins.notification.local.hasPermission(function (granted) {
+            if (granted) {
+                cordova.plugins.notification.local.schedule({
+                    id: msgId,
+                    title: title,
+                    text: text,
+                    foreground: true,
+                    vibrate: true
+                });
+            }
+        });
+    },
     init: function () {
         this.checkLogin();
         routing.init();
@@ -259,12 +275,124 @@ var app = {
         if (user_info = null) {
             this.getApi();
         }
-
+        //获取弹出通知权限
+        cordova.plugins.notification.local.requestPermission(function (granted) {
+            console.log('notification.local.requestPermission:' + granted);
+        });
 
         htmlImport.setItem(config.importFile, 'msg_snackbar');
-    }
 
+    },
+    inForeground: false,
+    resumingTasks: [],
+    onPause: function () {
+        //App进入后台
+        console.log('onPause');
+        app.inForeground = false;
+    },
+    onResume: function () {
+        //App进入前台
+        console.log('onResume');
+        app.inForeground = true;
+
+        if (app.resumingTasks.length > 0) {
+            app.resumingTasks.forEach(function (task, index) {
+                if (task.name == 'gettingLocation' && task.waiting) {
+                    app.getPermissionAndLocation(task.fun);
+                    task.waiting = false;
+                }
+            })
+        }
+    },
+    onDeviceReady: function () {
+        // //-------------------------测试gps
+        // var onSuccess = function (position) {
+        //     alert('Latitude: ' + position.coords.latitude + '\n' +
+        //         'Longitude: ' + position.coords.longitude + '\n' +
+        //         'Altitude: ' + position.coords.altitude + '\n' +
+        //         'Accuracy: ' + position.coords.accuracy + '\n' +
+        //         'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+        //         'Heading: ' + position.coords.heading + '\n' +
+        //         'Speed: ' + position.coords.speed + '\n' +
+        //         'Timestamp: ' + position.timestamp + '\n');
+        // };
+        //
+        // // onError Callback receives a PositionError object
+        // //
+        // function onError(error) {
+        //     alert('code: ' + error.code + '\n' +
+        //         'message: ' + error.message + '\n');
+        // }
+        //
+        // navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 20000});
+        // //----------------------------测试gps
+        console.log("--------------------测试百度定位");
+        app.getLocation(function (data) {
+            console.log(JSON.stringify(data));
+        });
+
+
+    },
+    getLocation: function (callback) {
+        cordova.plugins.diagnostic.isGpsLocationEnabled(function (enabled) {
+            console.log("GPS location is " + (enabled ? "enabled" : "disabled"));
+            if (!enabled) {
+                navigator.notification.confirm(
+                    '当前GPS没有打开，是否打开提高定位精度', // message
+                    function (buttonIndex) {
+                        alert(buttonIndex);
+                        if (buttonIndex == 1) {
+                            app.resumingTasks.push({'name': 'gettingLocation', 'fun': callback, 'waiting': true});
+                            cordova.plugins.diagnostic.switchToLocationSettings();
+                        } else {
+                            app.getPermissionAndLocation(callback);
+                        }
+                    },            // callback to invoke with index of button pressed
+                    '定位提示',           // title
+                    ['是', '否']     // buttonLabels
+                );
+            } else {
+                app.getPermissionAndLocation(callback);
+            }
+        }, function (error) {
+            console.error("The following error occurred: " + error);
+        });
+    },
+    getPermissionAndLocation:function (callback) {
+        cordova.plugins.diagnostic.requestLocationAuthorization(function(status){
+            switch(status){
+                case cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED:
+                    console.log("Permission not requested");
+                    break;
+                case cordova.plugins.diagnostic.permissionStatus.DENIED:
+                    console.log("Permission denied");
+                    break;
+                case cordova.plugins.diagnostic.permissionStatus.GRANTED:
+                    console.log("Permission granted always");
+                    app.getBiduLocation(callback);
+                    break;
+                case cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE:
+                    console.log("Permission granted only when in use");
+                    app.getBiduLocation(callback);
+                    break;
+            }
+        }, function(error){
+            console.error(error);
+        }, cordova.plugins.diagnostic.locationAuthorizationMode.WHEN_IN_USE);
+    },
+    getBiduLocation: function (callback) {
+        cordova.plugins.baiduLocation.getCurrentPosition(function (data) {
+            alert(JSON.stringify(data));
+            callback && callback(data);
+        }, function (e) {
+            alert(JSON.stringify(e));
+            callback && callback(e);
+        });
+    }
 }
 
 
 htmlImport.ready(app, 'init');
+document.addEventListener("pause", app.onPause, false);
+document.addEventListener("resume", app.onResume, false);
+document.addEventListener('deviceready', app.onDeviceReady, false);
