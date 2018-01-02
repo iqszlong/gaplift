@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.elift.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.elift.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>elift</name>
     <description>
         Elift
@@ -8,6 +8,7 @@
         PhoneGap Team
     </author>
     <content src="index.html" />
+    <preference name="orientation" value="portrait" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="15" />
     <preference name="StatusBarOverlaysWebView" value="false" />
@@ -21,18 +22,27 @@
         <icon density="xhdpi" src="www/res/icon/android/drawable-xhdpi-icon.png" />
         <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi-icon.png" />
         <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
-        <splash density="land-ldpi" src="www/res/screen/android/drawable-land-ldpi-screen.png" />
-        <splash density="land-mdpi" src="www/res/screen/android/drawable-land-mdpi-screen.png" />
-        <splash density="land-hdpi" src="www/res/screen/android/drawable-land-hdpi-screen.png" />
-        <splash density="land-xhdpi" src="www/res/screen/android/drawable-land-xhdpi-screen.png" />
-        <splash density="land-xxhdpi" src="www/res/screen/android/drawable-land-xxhdpi-screen.png" />
-        <splash density="land-xxxhdpi" src="www/res/screen/android/drawable-land-xxxhdpi-screen.png" />
+        <resource-file src="www/res/icon-small/android/drawable-ldpi-small-icon.png" target="res/mipmap-ldpi/small_icon.png" />
+        <resource-file src="www/res/icon-small/android/drawable-mdpi-small-icon.png" target="res/mipmap-mdpi/small_icon.png" />
+        <resource-file src="www/res/icon-small/android/drawable-hdpi-small-icon.png" target="res/mipmap-hdpi/small_icon.png" />
+        <resource-file src="www/res/icon-small/android/drawable-xhdpi-small-icon.png" target="res/mipmap-xhdpi/small_icon.png" />
+        <resource-file src="www/res/icon-small/android/drawable-xxhdpi-small-icon.png" target="res/mipmap-xxhdpi/small_icon.png" />
+        <resource-file src="www/res/icon-small/android/drawable-xxxhdpi-small-icon.png" target="res/mipmap-xxxhdpi/small_icon.png" />
+        <icon density="ldpi" src="www/res/small-icon/android/drawable-ldpi-small-icon.png" />
+        <icon density="mdpi" src="www/res/small-icon/android/drawable-mdpi-small-icon.png" />
+        <icon density="hdpi" src="www/res/small-icon/android/drawable-hdpi-small-icon.png" />
+        <icon density="xhdpi" src="www/res/small-icon/android/drawable-xhdpi-small-icon.png" />
+        <icon density="xxhdpi" src="www/res/small-icon/android/drawable-xxhdpi-small-icon.png" />
+        <icon density="xxxhdpi" src="www/res/small-icon/android/drawable-xxxhdpi-small-icon.png" />
         <splash density="port-ldpi" src="www/res/screen/android/drawable-port-ldpi-screen.png" />
         <splash density="port-mdpi" src="www/res/screen/android/drawable-port-mdpi-screen.png" />
         <splash density="port-hdpi" src="www/res/screen/android/drawable-port-hdpi-screen.png" />
         <splash density="port-xhdpi" src="www/res/screen/android/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="www/res/screen/android/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="www/res/screen/android/drawable-port-xxxhdpi-screen.png" />
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="qAfV1AfDjTkj1GtrKyhIVxB707zqBd8R" />
+        </config-file>
     </platform>
     <platform name="ios">
         <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
@@ -77,16 +87,18 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="browser" spec="^5.0.2" />
-    <engine name="android" spec="6.3.0" />
+    <engine name="android" spec="^6.3.0" />
     <plugin name="phonegap-plugin-barcodescanner" spec="git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git" />
     <plugin name="cordova-plugin-statusbar" spec="~2.1.3" />
     <plugin name="cordova-plugin-console" spec="~1.0.3" />
     <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
-    <plugin name="cordova-plugin-file" spec="3.0.0" />
     <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.1" />
     <plugin name="cordova-plugin-geolocation" spec="^3.0.0" />
-    <plugin name="phonegap-plugin-baidulocation" spec="git+https://github.com/CicadaBear/baidulocation-phonegap-plugin.git" />
     <plugin name="cordova.plugins.diagnostic" spec="^3.8.1" />
+    <plugin name="cordova-plugin-app-update" spec="^1.4.14" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.1" />
+    <plugin name="phonegap-plugin-baidulocation" spec="git+https://github.com/CicadaBear/baidulocation-phonegap-plugin.git" />
+    <plugin name="cordova-plugin-code-push" spec="^1.11.0" />
 </widget>

@@ -260,6 +260,8 @@ var app = {
                     id: msgId,
                     title: title,
                     text: text,
+                    icon: 'res://icon',
+                    smallIcon: 'res://small_icon',
                     foreground: true,
                     vibrate: true
                 });
@@ -275,11 +277,6 @@ var app = {
         if (user_info = null) {
             this.getApi();
         }
-        //获取弹出通知权限
-        cordova.plugins.notification.local.requestPermission(function (granted) {
-            console.log('notification.local.requestPermission:' + granted);
-        });
-
         htmlImport.setItem(config.importFile, 'msg_snackbar');
 
     },
@@ -325,13 +322,22 @@ var app = {
         // }
         //
         // navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 20000});
+
+        //获取弹出通知权限
+        cordova.plugins.notification.local.requestPermission(function (granted) {
+            console.log('notification.local.requestPermission:' + granted);
+        });
+        //监听通知点击事件
+        cordova.plugins.notification.local.on("click", function (notification) {
+            alert(JSON.stringify(notification));
+        });
+
         // //----------------------------测试gps
         console.log("--------------------测试百度定位");
         app.getLocation(function (data) {
             console.log(JSON.stringify(data));
         });
-
-
+        app.checkForUpdate();
     },
     getLocation: function (callback) {
         cordova.plugins.diagnostic.isGpsLocationEnabled(function (enabled) {
@@ -358,9 +364,9 @@ var app = {
             console.error("The following error occurred: " + error);
         });
     },
-    getPermissionAndLocation:function (callback) {
-        cordova.plugins.diagnostic.requestLocationAuthorization(function(status){
-            switch(status){
+    getPermissionAndLocation: function (callback) {
+        cordova.plugins.diagnostic.requestLocationAuthorization(function (status) {
+            switch (status) {
                 case cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED:
                     console.log("Permission not requested");
                     break;
@@ -376,7 +382,7 @@ var app = {
                     app.getBiduLocation(callback);
                     break;
             }
-        }, function(error){
+        }, function (error) {
             console.error(error);
         }, cordova.plugins.diagnostic.locationAuthorizationMode.WHEN_IN_USE);
     },
@@ -388,6 +394,16 @@ var app = {
             alert(JSON.stringify(e));
             callback && callback(e);
         });
+    },
+    checkForUpdate: function () {
+        if (device.platform.toUpperCase() == 'ANDROID') {
+            var updateUrl = "http://192.168.8.15/version.xml";
+            window.AppUpdate.checkAppUpdate(function (data) {
+                alert(JSON.stringify(data));
+            }, function (e) {
+                alert(JSON.stringify(e));
+            }, updateUrl);
+        }
     }
 }
 

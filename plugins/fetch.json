@@ -47,14 +47,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-file": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-file@^5.0.0"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-local-notification": {
     "source": {
       "type": "registry",
@@ -87,12 +79,84 @@
     "is_top_level": true,
     "variables": {}
   },
+  "cordova-plugin-app-update": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-app-update"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-appversion": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-appversion@1.0.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-splashscreen": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-splashscreen@5.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
   "phonegap-plugin-baidulocation": {
     "source": {
       "type": "registry",
       "id": "https://github.com/CicadaBear/baidulocation-phonegap-plugin.git"
     },
     "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-code-push": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-code-push@latest"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "code-push": {
+    "source": {
+      "type": "registry",
+      "id": "code-push@2.0.4"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-file-transfer": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-transfer@1.6.3"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-file": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file@^4.0.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-compat": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-compat@^1.0.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-zip": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-zip@>=3.0.0"
+    },
+    "is_top_level": false,
     "variables": {}
   }
 }
