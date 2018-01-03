@@ -45,6 +45,12 @@
     },
     "cordova-plugin-code-push": {
       "PACKAGE_NAME": "com.elift.app"
+    },
+    "de.neofonie.cordova.plugin.progressview": {
+      "PACKAGE_NAME": "com.elift.app"
+    },
+    "org.pbernasconi.progressindicator": {
+      "PACKAGE_NAME": "com.elift.app"
     }
   },
   "dependent_plugins": {

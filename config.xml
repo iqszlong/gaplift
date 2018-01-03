@@ -44,6 +44,7 @@
             <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="qAfV1AfDjTkj1GtrKyhIVxB707zqBd8R" />
         </config-file>
         <preference name="CodePushDeploymentKey" value="5HVIykMjpt5Mt1HS3AZLYFhHCRZwS1D7-ktQz" />
+        <preference name="CodePushPublicKey" value="-----BEGIN PUBLIC KEY-----&#xA;MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4pRqGgOSk3S8YD1mV9Ix&#xA;3vsR+jX5gRYf33YpYf1SAosfyXwdsTcCRDh3/dBSaShwf3dERj8RiR2irFGGPScc&#xA;YQtQMf/knWWFciO8OkZipiBylxPBqr3FVBk+irkMCNSit5OJmjc1iMiDn47QqeXi&#xA;lahdvdnVBTYutoqttDzerN5rCLgHKcXF5gtWhlM6RWYDKHZwXe7QZe1hBSzcVe72&#xA;1J/6dtFtFL7t1VIkRJOVISMT3MWa8E8TLr1yqLupeXijTL3vUE11+jmJp1VZBj0a&#xA;d8lub2qFMDbOcs+VEfpw6aFAGniD40x3jEbY3obMOaN+SE3McK1E/lF9wpOHe3Ww&#xA;mQIDAQAB&#xA;-----END PUBLIC KEY-----&#xA;" />
     </platform>
     <platform name="ios">
         <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
@@ -74,6 +75,9 @@
         <splash height="480" platform="ios" src="www/res/screen/ios/Default~iphone.png" width="320" />
     </platform>
     <access origin="*" />
+    <access origin="https://codepush.azurewebsites.net" />
+    <access origin="https://codepush.blob.core.windows.net" />
+    <access origin="https://codepushupdates.azureedge.net" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -102,4 +106,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.1" />
     <plugin name="phonegap-plugin-baidulocation" spec="git+https://github.com/CicadaBear/baidulocation-phonegap-plugin.git" />
     <plugin name="cordova-plugin-code-push" spec="^1.11.0" />
+    <plugin name="de.neofonie.cordova.plugin.progressview" spec="https://github.com/cicadabear/cordova-plugin-progressview.git" />
+    <plugin name="org.pbernasconi.progressindicator" spec="~1.1.0" />
 </widget>

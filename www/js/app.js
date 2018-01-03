@@ -298,8 +298,22 @@ var app = {
                     app.getPermissionAndLocation(task.fun);
                     task.waiting = false;
                 }
+                // else if (task.name = 'hidingProgressIndicator' && task.waiting) {
+                //     ProgressIndicator.hide();
+                //     task.waiting = false;
+                // }
             })
         }
+        //测试热更新
+        // codePush.checkForUpdate(function (update) {
+        //     if (!update) {
+        //         console.log("The app is up to date.");
+        //     } else {
+        //         console.log("An update is available! Should we download it?");
+        //     }
+        // });
+        // codePush.sync(null, { updateDialog: true, installMode: InstallMode.ON_NEXT_RESTART });
+
     },
     onDeviceReady: function () {
         // //-------------------------测试gps
@@ -337,7 +351,83 @@ var app = {
         app.getLocation(function (data) {
             console.log(JSON.stringify(data));
         });
-        app.checkForUpdate();
+        app.checkForUpdateApk();
+        //测试热更新
+        alert(6);
+        window.codePush.notifyApplicationReady();
+        app.checkForHotUpdate();
+    },
+    checkForHotUpdate: function () {
+        // var onError = function (error) {
+        //     console.log("An error occurred. " + error);
+        // };
+        //
+        // var onInstallSuccess = function () {
+        //     console.log("Installation succeeded.");
+        // };
+        //
+        // var onPackageDownloaded = function (localPackage) {
+        //     // Install regular updates after someone navigates away from the app for more than 2 minutes
+        //     // Install mandatory updates after someone restarts the app
+        //     localPackage.install(onInstallSuccess, onError, { installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 120, mandatoryInstallMode: InstallMode.ON_NEXT_RESTART });
+        // };
+        //
+        // var onUpdateCheck = function (remotePackage) {
+        //     if (!remotePackage) {
+        //         console.log("The application is up to date.");
+        //     } else {
+        //         // The hash of each previously reverted package is stored for later use.
+        //         // This way, we avoid going into an infinite bad update/revert loop.
+        //         if (!remotePackage.failedInstall) {
+        //             console.log("A CodePush update is available. Package hash: " + remotePackage.packageHash);
+        //             remotePackage.download(onPackageDownloaded, onError);
+        //         } else {
+        //             console.log("The available update was attempted before and failed.");
+        //         }
+        //     }
+        // };
+        //
+        // window.codePush.checkForUpdate(onUpdateCheck, onError);
+        // window.codePush.sync( // works, but after app restart, app rolls back to previous content.
+        //     null ,{
+        //         updateDialog: {
+        //             appendReleaseDescription:true,
+        //             descriptionPrefix:'\n\nChange log:\n'
+        //         },
+        //         installMode: InstallMode.IMMEDIATE
+        //     }
+        // );
+
+        window.codePush.sync(syncStatus, {
+            updateDialog: {
+                appendReleaseDescription: true,
+                descriptionPrefix: '\n\n更新内容:\n'
+            },
+            installMode: InstallMode.IMMEDIATE
+        }, downloadProgress);
+
+        function syncStatus(status) {
+            switch (status) {
+                case SyncStatus.DOWNLOADING_PACKAGE:
+                    // Show "downloading" modal
+                    window.plugins.ProgressView.show('下载更新中...', 'HORIZONTAL');
+                    break;
+                case SyncStatus.INSTALLING_UPDATE:
+                    // Hide "downloading" modal
+                    window.plugins.ProgressView.hide();
+                    ProgressIndicator.showSimpleWithLabelDetail(true, null, "正在更新...");
+                    app.resumingTasks.push({'name': 'hidingProgressIndicator', 'fun': null, 'waiting': true});
+                    break;
+            }
+        }
+
+        function downloadProgress(downloadProgress) {
+            if (downloadProgress) {
+                // Update "downloading" modal with current download %
+                console.log("Downloading " + downloadProgress.receivedBytes + " of " + downloadProgress.totalBytes);
+                window.plugins.ProgressView.setProgress(downloadProgress.receivedBytes / downloadProgress.totalBytes);
+            }
+        }
     },
     getLocation: function (callback) {
         cordova.plugins.diagnostic.isGpsLocationEnabled(function (enabled) {
@@ -395,7 +485,7 @@ var app = {
             callback && callback(e);
         });
     },
-    checkForUpdate: function () {
+    checkForUpdateApk: function () {
         if (device.platform.toUpperCase() == 'ANDROID') {
             var updateUrl = "http://192.168.8.15/version.xml";
             window.AppUpdate.checkAppUpdate(function (data) {
