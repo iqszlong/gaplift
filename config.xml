@@ -43,6 +43,7 @@
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="qAfV1AfDjTkj1GtrKyhIVxB707zqBd8R" />
         </config-file>
+        <preference name="CodePushDeploymentKey" value="5HVIykMjpt5Mt1HS3AZLYFhHCRZwS1D7-ktQz" />
     </platform>
     <platform name="ios">
         <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
