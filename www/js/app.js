@@ -216,6 +216,24 @@ var app = {
     },
     getFileContentAsBase64: function (path, callback) {
         window.resolveLocalFileSystemURL(path, function (entry) {
+            app.readAsDataURL(entry, callback);
+        }, function (error) {
+            alert('Cannot found requested file:' + path);
+        });
+    },
+    readAsDataURL: function (fileEntry, callback) {
+        fileEntry.file(function (file) {
+            var reader = new FileReader();
+            reader.onloadend = function (e) {
+                var content = this.result;
+                callback(content);
+            };
+            // The most important point, use the readAsDatURL Method from the file plugin
+            reader.readAsDataURL(file);
+        });
+    },
+    getFileContent:function (path, callback) {
+        window.resolveLocalFileSystemURL(path, function (entry) {
             app.readFile(entry, callback);
         }, function (error) {
             alert('Cannot found requested file:' + path);
@@ -229,7 +247,7 @@ var app = {
                 callback(content);
             };
             // The most important point, use the readAsDatURL Method from the file plugin
-            reader.readAsDataURL(file);
+            reader.readAsArrayBuffer(file);
         });
     },
     listDir: function (path) {
@@ -493,7 +511,123 @@ var app = {
                 alert(JSON.stringify(e));
             }, updateUrl);
         }
-    }
+    },
+    openCamera: function (selection) {
+
+        var srcType = Camera.PictureSourceType.CAMERA;
+        var options = app.setCameraOptions(srcType);
+        var func = app.createNewFileEntryFromImgUri;
+
+        navigator.camera.getPicture(function cameraSuccess(imageUri) {
+
+            alert(imageUri);
+            // displayImage(imageUri);
+            // // You may choose to copy the picture, save it somewhere, or upload.
+            func(imageUri);
+
+        }, function cameraError(error) {
+            console.debug("Unable to obtain picture: " + error, "app");
+
+        }, options);
+    },
+    setCameraOptions: function (srcType) {
+        var options = {
+            // Some common settings are 20, 50, and 100
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI,
+            // In this app, dynamically set the picture source, Camera or photo gallery
+            sourceType: srcType,
+            encodingType: Camera.EncodingType.JPEG,
+            mediaType: Camera.MediaType.PICTURE,
+            allowEdit: false,
+            correctOrientation: true  //Corrects Android orientation quirks
+        }
+        return options;
+    },
+    createNewFileEntryFromImgUri: function (imgUri) {
+        // var onErrorResolveUrl = function (error) {
+        //     console.log(JSON.stringify(error));
+        // }
+        // var onErrorCreateFile = function (error) {
+        //     console.log(JSON.stringify(error));
+        // }
+        // window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
+        //
+        //     // JPEG file
+        //     dirEntry.getFile("tempFile.jpeg", {create: true, exclusive: false}, function (fileEntry) {
+        //
+        //         // Do something with it, like write to it, upload it, etc.
+        //         app.getFileContent(imgUri,function (result) {
+        //             var blob = new Blob([new Uint8Array(this.result)], { type: 'image/jpeg' });
+        //             app.writeFile(fileEntry, result);
+        //             console.log("got file: " + fileEntry.fullPath);
+        //         });
+        //
+        //         // displayFileData(fileEntry.fullPath, "File copied to");
+        //
+        //     }, onErrorCreateFile);
+        //
+        // }, onErrorResolveUrl);
+        function copyFile(entry) {
+            window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory,
+                function onSuccess(dirEntry)
+                {
+                    // copy the file to a new directory and rename it
+                    entry.copyTo(dirEntry, "tempFile.jpeg", function (data) {
+                        console.log(JSON.stringify(data));
+                    }, function (e) {
+                        console.log(JSON.stringify(e));
+                    })
+                }, function (e) {
+                    console.log(JSON.stringify(e));
+                });
+        }
+        window.resolveLocalFileSystemURL(imgUri, function (entry) {
+            copyFile(entry);
+        }, function (error) {
+            alert('Cannot found requested file:' + path);
+        });
+    },
+    writeFile: function (fileEntry, dataObj) {
+        var readFile = function (fileEntry) {
+            var onErrorReadFile = function (error) {
+                console.log(JSON.stringify(error));
+            }
+            fileEntry.file(function (file) {
+                var reader = new FileReader();
+
+                reader.onloadend = function () {
+                    console.log("Successful file read: " + this.result);
+                    // displayFileData(fileEntry.fullPath + ": " + this.result);
+                    console.log(fileEntry.fullPath);
+                };
+
+                reader.readAsText(file);
+
+            }, onErrorReadFile);
+        }
+        // Create a FileWriter object for our FileEntry (log.txt).
+        fileEntry.createWriter(function (fileWriter) {
+
+            fileWriter.onwriteend = function () {
+                console.log("Successful file write...");
+                readFile(fileEntry);
+            };
+
+            fileWriter.onerror = function (e) {
+                console.log("Failed file write: " + e.toString());
+            };
+
+            // If data object is not passed in,
+            // create a new Blob instead.
+            if (!dataObj) {
+                dataObj = new Blob(['some file data'], {type: 'text/plain'});
+            }
+
+            fileWriter.write(dataObj);
+        });
+    },
+
 }
 
 

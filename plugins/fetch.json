@@ -138,9 +138,9 @@
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@^4.0.0"
+      "id": "cordova-plugin-file@^4.3.3"
     },
-    "is_top_level": false,
+    "is_top_level": true,
     "variables": {}
   },
   "cordova-plugin-compat": {
@@ -171,6 +171,14 @@
     "source": {
       "type": "registry",
       "id": "https://github.com/cicadabear/cordova-progressIndicator.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@4.0.1"
     },
     "is_top_level": true,
     "variables": {}

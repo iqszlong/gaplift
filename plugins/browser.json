@@ -51,6 +51,12 @@
     },
     "cordova-plugin-progressindicator": {
       "PACKAGE_NAME": "com.elift.app"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.elift.app"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.elift.app"
     }
   },
   "dependent_plugins": {
@@ -64,9 +70,6 @@
       "PACKAGE_NAME": "com.elift.app"
     },
     "cordova-plugin-compat": {
-      "PACKAGE_NAME": "com.elift.app"
-    },
-    "cordova-plugin-file": {
       "PACKAGE_NAME": "com.elift.app"
     },
     "cordova-plugin-file-transfer": {
