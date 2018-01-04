@@ -353,7 +353,7 @@ var app = {
         });
         app.checkForUpdateApk();
         //测试热更新
-        alert(6);
+        alert(2);
         window.codePush.notifyApplicationReady();
         app.checkForHotUpdate();
     },
@@ -397,7 +397,7 @@ var app = {
         //         installMode: InstallMode.IMMEDIATE
         //     }
         // );
-
+        cordova.plugins.ProgressIndicator.hide();
         window.codePush.sync(syncStatus, {
             updateDialog: {
                 appendReleaseDescription: true,
@@ -415,8 +415,7 @@ var app = {
                 case SyncStatus.INSTALLING_UPDATE:
                     // Hide "downloading" modal
                     window.plugins.ProgressView.hide();
-                    ProgressIndicator.showSimpleWithLabelDetail(true, null, "正在更新...");
-                    app.resumingTasks.push({'name': 'hidingProgressIndicator', 'fun': null, 'waiting': true});
+                    cordova.plugins.ProgressIndicator.showSimpleWithLabelDetail(false, '更新提示', "正在更新...");
                     break;
             }
         }

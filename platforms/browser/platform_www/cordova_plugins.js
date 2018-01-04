@@ -450,11 +450,11 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.pbernasconi.progressindicator/www/progressIndicator.js",
-        "id": "org.pbernasconi.progressindicator.ProgressIndicator",
-        "pluginId": "org.pbernasconi.progressindicator",
+        "file": "plugins/cordova-plugin-progressindicator/www/progressIndicator.js",
+        "id": "cordova-plugin-progressindicator.ProgressIndicator",
+        "pluginId": "cordova-plugin-progressindicator",
         "clobbers": [
-            "ProgressIndicator"
+            "cordova.plugins.ProgressIndicator"
         ]
     }
 ];
@@ -482,7 +482,7 @@ module.exports.metadata =
     "cordova-plugin-zip": "3.1.0",
     "cordova-plugin-code-push": "1.11.0",
     "de.neofonie.cordova.plugin.progressview": "3.0.1",
-    "org.pbernasconi.progressindicator": "1.1.0"
+    "cordova-plugin-progressindicator": "1.2.1"
 }
 // BOTTOM OF METADATA
 });

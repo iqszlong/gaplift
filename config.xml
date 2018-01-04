@@ -107,5 +107,5 @@
     <plugin name="phonegap-plugin-baidulocation" spec="git+https://github.com/CicadaBear/baidulocation-phonegap-plugin.git" />
     <plugin name="cordova-plugin-code-push" spec="^1.11.0" />
     <plugin name="de.neofonie.cordova.plugin.progressview" spec="https://github.com/cicadabear/cordova-plugin-progressview.git" />
-    <plugin name="org.pbernasconi.progressindicator" spec="~1.1.0" />
+    <plugin name="cordova-plugin-progressindicator" spec="https://github.com/cicadabear/cordova-progressIndicator.git" />
 </widget>

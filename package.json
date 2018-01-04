@@ -27,7 +27,7 @@
     "phonegap-plugin-baidulocation": "git+https://github.com/CicadaBear/baidulocation-phonegap-plugin.git",
     "phonegap-plugin-barcodescanner": "git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git",
     "de.neofonie.cordova.plugin.progressview": "https://github.com/cicadabear/cordova-plugin-progressview.git",
-    "org.pbernasconi.progressindicator": "~1.1.0"
+    "cordova-plugin-progressindicator": "https://github.com/cicadabear/cordova-progressIndicator.git"
   },
   "cordova": {
     "plugins": {
@@ -45,7 +45,7 @@
       "phonegap-plugin-baidulocation": {},
       "cordova-plugin-code-push": {},
       "de.neofonie.cordova.plugin.progressview": {},
-      "org.pbernasconi.progressindicator": {}
+      "cordova-plugin-progressindicator": {}
     },
     "platforms": [
       "browser",

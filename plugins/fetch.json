@@ -159,18 +159,18 @@
     "is_top_level": false,
     "variables": {}
   },
-  "org.pbernasconi.progressindicator": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-progressindicator"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "de.neofonie.cordova.plugin.progressview": {
     "source": {
       "type": "registry",
       "id": "https://github.com/cicadabear/cordova-plugin-progressview.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-progressindicator": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/cicadabear/cordova-progressIndicator.git"
     },
     "is_top_level": true,
     "variables": {}
