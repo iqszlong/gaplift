@@ -297,6 +297,14 @@ var app = {
         }
         htmlImport.setItem(config.importFile, 'msg_snackbar');
 
+        $(document).on('click', 'a[href^=http], a[href^=https]', function(e){
+
+            e.preventDefault();
+            var $this = $(this);
+            var target = $this.data('inAppBrowser') || '_blank';
+
+            window.open($this.attr('href'), target, 'location=no');
+        });
     },
     inForeground: false,
     resumingTasks: [],
@@ -374,6 +382,8 @@ var app = {
         alert(2);
         window.codePush.notifyApplicationReady();
         app.checkForHotUpdate();
+
+
     },
     checkForHotUpdate: function () {
         // var onError = function (error) {
@@ -545,48 +555,48 @@ var app = {
         return options;
     },
     createNewFileEntryFromImgUri: function (imgUri) {
-        // var onErrorResolveUrl = function (error) {
-        //     console.log(JSON.stringify(error));
-        // }
-        // var onErrorCreateFile = function (error) {
-        //     console.log(JSON.stringify(error));
-        // }
-        // window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
-        //
-        //     // JPEG file
-        //     dirEntry.getFile("tempFile.jpeg", {create: true, exclusive: false}, function (fileEntry) {
-        //
-        //         // Do something with it, like write to it, upload it, etc.
-        //         app.getFileContent(imgUri,function (result) {
-        //             var blob = new Blob([new Uint8Array(this.result)], { type: 'image/jpeg' });
-        //             app.writeFile(fileEntry, result);
-        //             console.log("got file: " + fileEntry.fullPath);
-        //         });
-        //
-        //         // displayFileData(fileEntry.fullPath, "File copied to");
-        //
-        //     }, onErrorCreateFile);
-        //
-        // }, onErrorResolveUrl);
-        function copyFile(entry) {
-            window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory,
-                function onSuccess(dirEntry)
-                {
-                    // copy the file to a new directory and rename it
-                    entry.copyTo(dirEntry, "tempFile.jpeg", function (data) {
-                        console.log(JSON.stringify(data));
-                    }, function (e) {
-                        console.log(JSON.stringify(e));
-                    })
-                }, function (e) {
-                    console.log(JSON.stringify(e));
-                });
+        var onErrorResolveUrl = function (error) {
+            console.log(JSON.stringify(error));
         }
-        window.resolveLocalFileSystemURL(imgUri, function (entry) {
-            copyFile(entry);
-        }, function (error) {
-            alert('Cannot found requested file:' + path);
-        });
+        var onErrorCreateFile = function (error) {
+            console.log(JSON.stringify(error));
+        }
+        window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
+
+            // JPEG file
+            dirEntry.getFile("tempFile1.jpeg", {create: true, exclusive: false}, function (fileEntry) {
+
+                // Do something with it, like write to it, upload it, etc.
+                app.getFileContent(imgUri,function (result) {
+                    var blob = new Blob([this.result], { type: 'image/jpeg' });
+                    app.writeFile(fileEntry, result);
+                    console.log("got file: " + fileEntry.fullPath);
+                });
+
+                // displayFileData(fileEntry.fullPath, "File copied to");
+
+            }, onErrorCreateFile);
+
+        }, onErrorResolveUrl);
+        // function copyFile(entry) {
+        //     window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory,
+        //         function onSuccess(dirEntry)
+        //         {
+        //             // copy the file to a new directory and rename it
+        //             entry.copyTo(dirEntry, "tempFile.jpeg", function (data) {
+        //                 console.log(JSON.stringify(data));
+        //             }, function (e) {
+        //                 console.log(JSON.stringify(e));
+        //             })
+        //         }, function (e) {
+        //             console.log(JSON.stringify(e));
+        //         });
+        // }
+        // window.resolveLocalFileSystemURL(imgUri, function (entry) {
+        //     copyFile(entry);
+        // }, function (error) {
+        //     alert('Cannot found requested file:' + path);
+        // });
     },
     writeFile: function (fileEntry, dataObj) {
         var readFile = function (fileEntry) {
@@ -627,7 +637,20 @@ var app = {
             fileWriter.write(dataObj);
         });
     },
-
+    choosePictures:function () {
+        window.imagePicker.getPictures(
+            function(results) {
+                for (var i = 0; i < results.length; i++) {
+                    console.log('Image URI: ' + results[i]);
+                }
+            }, function (error) {
+                console.log('Error: ' + error);
+            }, {
+                maximumImagesCount: 10,
+                width: 800
+            }
+        );
+    }
 }
 
 

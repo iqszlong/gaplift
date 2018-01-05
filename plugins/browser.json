@@ -57,6 +57,9 @@
     },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "com.elift.app"
+    },
+    "cordova-plugin-image-picker": {
+      "PACKAGE_NAME": "com.elift.app"
     }
   },
   "dependent_plugins": {
