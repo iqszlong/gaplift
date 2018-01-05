@@ -8,7 +8,7 @@ var loader = {
 		}
 	},
 	changePath:function(array){
-		var dirpath = 'http://192.168.191.1/eapp/';
+		var dirpath = 'http://192.168.8.15/eapp/';
 		for (var i = 0; i < array.length; i++) {
 			if(typeof array[i] !== 'string'){
 				array[i].path = dirpath + array[i].path;
