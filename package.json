@@ -30,7 +30,8 @@
     "org.pbernasconi.progressindicator": "~1.1.0",
     "cordova-plugin-progressindicator": "https://github.com/cicadabear/cordova-progressIndicator.git",
     "cordova-plugin-camera": "^4.0.1",
-    "cordova-plugin-image-picker": "^1.1.3"
+    "cordova-plugin-image-picker": "^1.1.3",
+    "cordova-plugin-inappbrowser": "^2.0.1"
   },
   "cordova": {
     "plugins": {
@@ -52,7 +53,8 @@
       "cordova-plugin-progressindicator": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-image-picker": {}
+      "cordova-plugin-image-picker": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "browser",
