@@ -60,6 +60,10 @@
     },
     "cordova-plugin-image-picker": {
       "PACKAGE_NAME": "com.elift.app"
+    },
+    "jpush-phonegap-plugin": {
+      "APP_KEY": "8b36fb34fef479fa9e227f48",
+      "PACKAGE_NAME": "com.elift.app"
     }
   },
   "dependent_plugins": {
@@ -79,6 +83,9 @@
       "PACKAGE_NAME": "com.elift.app"
     },
     "cordova-plugin-zip": {
+      "PACKAGE_NAME": "com.elift.app"
+    },
+    "cordova-plugin-jcore": {
       "PACKAGE_NAME": "com.elift.app"
     }
   }

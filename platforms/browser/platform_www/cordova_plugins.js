@@ -494,6 +494,14 @@ module.exports = [
         "clobbers": [
             "plugins.imagePicker"
         ]
+    },
+    {
+        "file": "plugins/jpush-phonegap-plugin/www/JPushPlugin.js",
+        "id": "jpush-phonegap-plugin.JPushPlugin",
+        "pluginId": "jpush-phonegap-plugin",
+        "clobbers": [
+            "JPush"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -522,7 +530,9 @@ module.exports.metadata =
     "de.neofonie.cordova.plugin.progressview": "3.0.1",
     "cordova-plugin-progressindicator": "1.2.1",
     "cordova-plugin-camera": "4.0.1",
-    "cordova-plugin-image-picker": "1.1.1"
+    "cordova-plugin-image-picker": "1.1.1",
+    "cordova-plugin-jcore": "1.1.11",
+    "jpush-phonegap-plugin": "3.2.13"
 }
 // BOTTOM OF METADATA
 });

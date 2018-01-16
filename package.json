@@ -22,6 +22,7 @@
     "cordova-plugin-geolocation": "^3.0.0",
     "cordova-plugin-image-picker": "^1.1.3",
     "cordova-plugin-inappbrowser": "^2.0.1",
+    "cordova-plugin-jcore": "^1.1.11",
     "cordova-plugin-local-notification": "^0.9.0-beta.1",
     "cordova-plugin-progressindicator": "https://github.com/cicadabear/cordova-progressIndicator.git",
     "cordova-plugin-splashscreen": "^5.0.1",
@@ -30,6 +31,7 @@
     "cordova-plugin-zip": "^3.1.0",
     "cordova.plugins.diagnostic": "^3.8.1",
     "de.neofonie.cordova.plugin.progressview": "https://github.com/cicadabear/cordova-plugin-progressview.git",
+    "jpush-phonegap-plugin": "^3.2.13",
     "org.pbernasconi.progressindicator": "~1.1.0",
     "phonegap-plugin-baidulocation": "git+https://github.com/CicadaBear/baidulocation-phonegap-plugin.git",
     "phonegap-plugin-barcodescanner": "git+https://github.com/cicadabear/phonegap-plugin-barcodescanner.git"
@@ -55,7 +57,10 @@
       "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
       "cordova-plugin-image-picker": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "jpush-phonegap-plugin": {
+        "APP_KEY": "8b36fb34fef479fa9e227f48"
+      }
     },
     "platforms": [
       "browser",

@@ -101,6 +101,13 @@
     },
     "cordova-plugin-image-picker": {
       "PACKAGE_NAME": "com.elift.app"
+    },
+    "cordova-plugin-jcore": {
+      "PACKAGE_NAME": "com.elift.app"
+    },
+    "jpush-phonegap-plugin": {
+      "APP_KEY": "8b36fb34fef479fa9e227f48",
+      "PACKAGE_NAME": "com.elift.app"
     }
   },
   "dependent_plugins": {},
@@ -599,6 +606,14 @@
       "clobbers": [
         "plugins.imagePicker"
       ]
+    },
+    {
+      "file": "plugins/jpush-phonegap-plugin/www/JPushPlugin.js",
+      "id": "jpush-phonegap-plugin.JPushPlugin",
+      "pluginId": "jpush-phonegap-plugin",
+      "clobbers": [
+        "JPush"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -625,6 +640,8 @@
     "de.neofonie.cordova.plugin.progressview": "3.0.1",
     "cordova-plugin-progressindicator": "1.2.1",
     "cordova-plugin-camera": "4.0.1",
-    "cordova-plugin-image-picker": "1.1.1"
+    "cordova-plugin-image-picker": "1.1.1",
+    "cordova-plugin-jcore": "1.1.11",
+    "jpush-phonegap-plugin": "3.2.13"
   }
 }
